@@ -32,8 +32,8 @@ import entities.Driver;
 
  public class Coord {
 
-private Client test = new Client("CLIENT TEST 1", "0", "PHONE N1", "PICK UP ADD", "DROP OFF ADD", 1, "COMMENT", true, true,true);
-private Client test2 = new Client("CLIENT TEST 2", "1", "PHONE N2", "PICK UP ADD", "DROP OFF ADD", 5, "COMMENT", true, true,true);
+private Client test = new Client("CLIENT TEST 1", "0", "PHONE N1", "PICK UP ADD", "DROP OFF ADD", 1);
+private Client test2 = new Client("CLIENT TEST 2", "1", "PHONE N2", "PICK UP ADD", "DROP OFF ADD", 5);
 private Driver Dtest = new Driver("DRIVER TEST 1", "13","PHONE N3", "LICENSE NUM", "CAR DESCRIPT");
 private Driver Dtest2 = new Driver("DRIVER TEST 2", "13","PHONE N4", "LICENSE NUM2", "CAR DESCRIPT2");
 private Driver Dtest3 = new Driver("DRIVER TEST 3", "13","PHONE N4", "LICENSE NUM3", "CAR DESCRIPT3");

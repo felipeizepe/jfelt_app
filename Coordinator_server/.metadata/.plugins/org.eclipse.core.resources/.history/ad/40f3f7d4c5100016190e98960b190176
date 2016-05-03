@@ -420,7 +420,7 @@ private void initialize() {
         	
         		if((((Driver) Avil_Driver.getSelectedValue()).getClass()==null )&&(((Client) acceptedList.getSelectedValue()).getClass() ==null)){
         		((Driver) Avil_Driver.getSelectedValue()).assignClient(((Client) acceptedList.getSelectedValue()));
-        		((Client) acceptedList.getSelectedValue()).assignDriver((((Driver) Avil_Driver.getSelectedValue())));
+        		
 				DriverInfoView.setModel(DriverViewModel);
         		Avil_Driver.setModel(DriverInfoModel);
         		acceptedList.setModel(ARModel);
@@ -610,8 +610,7 @@ public class ClientRenderer extends DefaultListCellRenderer {
         super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         if (value instanceof Client) {
             setText(((Client)value).getName());
-            if(((Client)value).getAssignedDriver() != null )
-            setBackground(Color.green);
+           
         }
         return this;
         

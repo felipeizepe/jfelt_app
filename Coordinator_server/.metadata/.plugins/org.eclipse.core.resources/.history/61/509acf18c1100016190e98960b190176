@@ -91,12 +91,4 @@ public class Client extends Entity implements Serializable{
 	public String getOtherComments() {
 		return otherComments;
 	}
-	
-	public boolean isRequestMade() {
-		return requestMade;
-	}
-	
-	public void hasRequested(){
-        requestMade = true;
-    }
 }

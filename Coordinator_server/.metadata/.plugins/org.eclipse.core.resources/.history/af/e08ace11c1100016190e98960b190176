@@ -79,24 +79,4 @@ public class Client extends Entity implements Serializable{
 	public boolean hasID() {
 		return hasID;
 	}
-	
-	public boolean isDropWithin10() {
-		return dropWithin10;
-	}
-	
-	public boolean isPickWithin10() {
-		return pickWithin10;
-	}
-	
-	public String getOtherComments() {
-		return otherComments;
-	}
-	
-	public boolean isRequestMade() {
-		return requestMade;
-	}
-	
-	public void hasRequested(){
-        requestMade = true;
-    }
 }

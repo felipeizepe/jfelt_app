@@ -13,7 +13,6 @@ public class Client extends Entity implements Serializable{
 	private String dropOffAddress;
 	private int numberOfClients;
 	private boolean hasDriver;
-	private Driver assignedDriver;
 	private String otherComments;
 	private boolean hasID;
 	private boolean pickWithin10;
@@ -59,17 +58,6 @@ public class Client extends Entity implements Serializable{
 	
 	public void setADflag(String aDflag) {
 		ADflag = aDflag;
-	}
-
-
-	public void assignDriver(Driver driver) {
-		this.assignedDriver = driver;
-		this.hasDriver = true;
-		
-	}
-	
-	public Driver getAssignedDriver() {
-		return assignedDriver;
 	}
 	
 	public boolean hasDriver() {

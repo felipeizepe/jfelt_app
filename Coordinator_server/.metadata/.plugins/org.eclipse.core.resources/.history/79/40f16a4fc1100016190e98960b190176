@@ -96,7 +96,7 @@ public class Client extends Entity implements Serializable{
 		return requestMade;
 	}
 	
-	public void hasRequested(){
+	private void hasRequested(){
         requestMade = true;
     }
 }
