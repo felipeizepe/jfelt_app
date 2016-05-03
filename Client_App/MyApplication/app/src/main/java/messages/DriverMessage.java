@@ -3,19 +3,19 @@ package messages;
 
 import java.io.Serializable;
 
-import entities.Client;
+import entities.Driver;
 
-public class StudentMessage implements Serializable{
+public class DriverMessage implements Serializable{
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private Operation MessageOperation;
-	private enum Operation{None, Message_To_Server, Message_To_Driver, 
-		Cancel_Request, Make_Request, Report_Error};
+	private enum Operation{None, Message_To_Server, Message_To_Client, 
+		Deny_Request, End_Night, Report_Error};
 		
-		private Client owner;
+		private Driver owner;
 		private String message;
 
 	/**
@@ -27,7 +27,7 @@ public class StudentMessage implements Serializable{
 	 * @param  owner of the message
 	 * @param  message that will be sent and read
 	 */
-	public StudentMessage(Client owner, String message) {
+	public DriverMessage(Driver owner, String message) {
 		this.owner = owner;
 		this.message = message;
 		this.MessageOperation = Operation.None;
@@ -40,15 +40,15 @@ public class StudentMessage implements Serializable{
 	 * @version 1.0
 	 * @since 2016-04-25
 	 */
-	public Client getOwner() {
+	public Driver getOwner() {
 		return owner;
 	}
 	
 	/**
 	 * Sets the type of operation that the message will perform
 	 *
-	 *@param type - <b>0</b> send a message to the coordinator | <b>1</b> send a message to driver |
- 	 * <b>2</b> make a ride request | <b>3</b> cancel a ride | <b>4</b> report that an error occurred
+	 *@param type - <b>0</b> send a message to the coordinator | <b>1</b> send a message to client |
+ 	 * <b>2</b> deny a ride request | <b>3</b> end the night | <b>4</b> report that an error occurred
 	 *
 	 * @author Felipe Izepe
 	 * @version 1.0
@@ -61,13 +61,13 @@ public class StudentMessage implements Serializable{
 			this.MessageOperation = Operation.Message_To_Server;
 			break;
 		case 1:
-			this.MessageOperation = Operation.Message_To_Driver;
+			this.MessageOperation = Operation.Message_To_Client;
 			break;
 		case 2: 
-			this.MessageOperation = Operation.Make_Request;
+			this.MessageOperation = Operation.Deny_Request;
 			break;
 		case 3:
-			this.MessageOperation = Operation.Cancel_Request;
+			this.MessageOperation = Operation.End_Night;
 			break;
 		default:
 			return;
@@ -97,7 +97,7 @@ public class StudentMessage implements Serializable{
 	 */
 	public boolean isMessageToDriver()
 	{
-		if(MessageOperation == Operation.Message_To_Driver)
+		if(MessageOperation == Operation.Message_To_Client)
 			return true;
 		return false;
 	}
@@ -111,7 +111,7 @@ public class StudentMessage implements Serializable{
 	 */
 	public boolean isMakeRequest()
 	{
-		if(MessageOperation == Operation.Make_Request)
+		if(MessageOperation == Operation.Deny_Request)
 			return true;
 		return false;
 	}
@@ -125,7 +125,7 @@ public class StudentMessage implements Serializable{
 	 */
 	public boolean isCancelRequest()
 	{
-		if(MessageOperation == Operation.Cancel_Request)
+		if(MessageOperation == Operation.End_Night)
 			return true;
 		return false;
 	}

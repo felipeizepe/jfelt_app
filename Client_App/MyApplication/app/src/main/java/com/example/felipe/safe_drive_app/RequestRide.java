@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
+import java.util.concurrent.ExecutionException;
 
 public class RequestRide extends AppCompatActivity {
     public final static String EXTRA_FIRSTNAME = "jfelt.saferides.FIRSTNAME";
@@ -21,11 +24,14 @@ public class RequestRide extends AppCompatActivity {
 
     Client answers = new Client();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_ride);
+
+
+
+
     }
 
     public void getGPSLocation(View view) {

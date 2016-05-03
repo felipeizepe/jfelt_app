@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.io.ObjectOutputStream;
 import messages.StudentMessage;
+import entities.Client;
 
 public class Connect_Thread extends AsyncTask<String, Void, Integer> {
 
@@ -32,10 +33,15 @@ public class Connect_Thread extends AsyncTask<String, Void, Integer> {
             }
         }
 
-        Log.i("info", message[0]);
 
         try {
-            StudentMessage sm = new StudentMessage(null, message[0]);
+            Client ct = RequestConfirmation.client;
+
+
+            Log.i("info name: ", ct.getName());
+
+            StudentMessage sm = new StudentMessage(ct, "REQUEST RIDE");
+            sm.serType(2);
             streamWriter.writeObject(sm);
 
         } catch (IOException e) {

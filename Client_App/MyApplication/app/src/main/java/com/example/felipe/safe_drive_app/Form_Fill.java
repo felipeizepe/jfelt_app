@@ -1,8 +1,6 @@
 package com.example.felipe.safe_drive_app;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,11 +9,6 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Button;
 
-
-import java.io.PrintWriter;
-import java.net.Socket;
-import java.io.IOException;
-import java.net.UnknownHostException;
 import java.util.concurrent.ExecutionException;
 
 
