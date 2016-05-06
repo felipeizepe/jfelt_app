@@ -1,6 +1,13 @@
 package com.example.felipe.safe_drive_app;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +15,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.felipe.safe_drive_app.entities.AppLocationService;
+import com.example.felipe.safe_drive_app.entities.LocationAddress;
+
 import java.util.concurrent.ExecutionException;
 
 public class RequestRide extends AppCompatActivity {
@@ -21,6 +32,10 @@ public class RequestRide extends AppCompatActivity {
     public final static String EXTRA_PICKWITHIN = "jfelt.saferides.PICKWITHIN";
     public final static String EXTRA_DROPWITHIN = "jfelt.saferides.DROPWITHIN";
     public final static String EXTRA_GROUPSIZE = "jfelt.saferides.GROUPSIZE";
+    AppLocationService appLocationService;
+    Button gps_button;
+    EditText pickup_address;
+    //RequestRideConfirm.Client client = new RequestRideConfirm.Client();
 
     Client answers = new Client();
 
@@ -28,10 +43,29 @@ public class RequestRide extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_ride);
+        pickup_address = (EditText) findViewById(R.id.pickup_address);
+        appLocationService = new AppLocationService(RequestRide.this);
 
+        gps_button = (Button) findViewById(R.id.gps_button);
+        gps_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
 
+                Location location = appLocationService
+                        .getLocation(LocationManager.GPS_PROVIDER);
 
+                if (location != null) {
+                    double latitude = location.getLatitude();
+                    double longitude = location.getLongitude();
+                    LocationAddress locationAddress = new LocationAddress();
+                    locationAddress.getAddressFromLocation(latitude, longitude,
+                            getApplicationContext(), new GeocoderHandler());
+                } else {
+                    showSettingsAlert();
+                }
 
+            }
+        });
     }
 
     public void getGPSLocation(View view) {
@@ -138,5 +172,40 @@ public class RequestRide extends AppCompatActivity {
         startActivity(submitIntent);
     }
 
+    public void showSettingsAlert() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(RequestRide.this);
+        alertDialog.setTitle("SETTINGS");
+        alertDialog.setMessage("GPS is disabled! Please enable it in your settings to use this feature.");
+        alertDialog.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        alertDialog.setPositiveButton("Settings",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(
+                                Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        RequestRide.this.startActivity(intent);
+                    }
+                });
+        alertDialog.show();
+    }
 
+    private class GeocoderHandler extends Handler {
+        @Override
+        public void handleMessage(Message message) {
+            String locationAddress;
+            switch (message.what) {
+                case 1:
+                    Bundle bundle = message.getData();
+                    locationAddress = bundle.getString("address");
+                    break;
+                default:
+                    locationAddress = null;
+            }
+            pickup_address.setText(locationAddress);
+        }
+    }
 }
