@@ -9,4 +9,76 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.felipe.safe_drive_app.RegisterDriver">
 
+    <TextView
+        android:id="@+id/register_driver_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_driver_intro"
+        android:layout_below="@+id/register_driver_title"/>
+
+    <EditText
+        android:id="@+id/driver_first_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/register_driver_intro"
+        android:ems="10"
+        android:hint="@string/first_name"
+        android:inputType="textPersonName|textCapWords"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="5dp" />
+
+    <EditText
+        android:id="@+id/driver_last_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/driver_first_name"
+        android:ems="10"
+        android:hint="@string/phone_number_text"
+        android:inputType="textCapWords|textPersonName"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="5dp" />
+
+    <EditText
+        android:id="@+id/driver_id_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/driver_last_name"
+        android:ems="10"
+        android:hint="@string/id_number"
+        android:inputType="number"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="5dp" />
+
+    <Button
+        android:id="@+id/register_submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit_button"
+        android:onClick="sendRegisterDriverMessage"
+        android:layout_below="@id/driver_id_number"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/register_driver_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/register_driver_title"
+        android:textAllCaps="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
 </RelativeLayout>

@@ -7,11 +7,13 @@
     <string name="register_driver">Register Driver</string>
     <string name="cancel_ride">Cancel Ride</string>
     <string name="about_button">About Safe Rides</string>
+    <string name="request_ride_title">Request a Ride</string>
     <string name="request_intro">
-        "Please answer the fill in the following fields."
+        "To request a ride, please fill in the following fields."
     </string>
-    <string name="first_name">First Name</string>
-    <string name="last_name">Last Name</string>
+    <string name="first_name">Full Name</string>
+    <string name="phone_number_text">Phone Number</string>
+    <string name="phone_number">###-###-####</string>
     <string name="id_number">Sac State ID</string>
     <string name="pickup_address">Pick-up Address</string>
     <string name="get_gps_button">"     Use GPS to get Location     "</string>
@@ -33,12 +35,13 @@
         "Is your destination within 10 miles of Sac State?"
     </string>
     <string name="request_question_4">
-        "Are there three or less members in your group?"
+        "How many people are in your group?"
     </string>
+    <string name="number_hint"> # </string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="confirm_intro">
-        "OK, we just need you to confirm the following information."
+        "OK, we just need you to confirm the following information. "
     </string>
     <string name="confirm_correction_instruction">
         "If the information was not correct, please hit the Back button "
@@ -50,19 +53,39 @@
     <string name="title_activity_register_driver">Register Driver</string>
     <string name="title_activity_about_page">About Safe Rides</string>
     <string name="about_info">
-        "Safe Rides is an Associated Students Inc. program that provides free, safe, and confidential rides home to the students, staff, and faculty of Sac State.
-
-The Safe Rides Program is designed to prevent incidents related to drinking and driving that lead to accidents, DUI/DWI arrests, and death. However, Safe Rides is also a safety net. It can be used in many different situations. For instance, Safe Rides can be used to get home from a bad date, a late movie, or a broken down car.
-
-Safe Rides operates from September through May on Wednesday, Thursday, Friday, and Saturday nights from 10 p.m. to 2 a.m. All that is needed is a valid One Card and a call to (916) 278-TAXI (8294)."
+        "Safe Rides is an Associated Students Inc. program that provides free, "
+        "safe, and confidential rides home to the students, staff, and faculty of Sac State."
+        "\n\nThe Safe Rides Program is designed to prevent incidents related to drinking and "
+        "driving that lead to accidents, DUI/DWI arrests, and death. However, Safe Rides "
+        "is also a safety net. It can be used in many different situations. For instance, "
+        "Safe Rides can be used to get home from a bad date, a late movie, or a broken down car."
+        "\n\nSafe Rides operates from September through May on Wednesday, Thursday, Friday, and "
+        "Saturday nights from 10 p.m. to 2 a.m. All that is needed is a valid Sac State One Card."
+        "\n\nYou can call during our hours of operation to request a ride or if you have any "
+        "questions call to (916) 278-TAXI (8294)."
     </string>
+    <string name="about_intro">Information</string>
     <string name="about_hours_title">Hours of Operation</string>
     <string name="about_hours">
-        "September through May
-Wednesday-Saturday nights from 10pm-2am
-
-*Safe Rides does not operate during official holidays/breaks during the semester (ex. Thanksgiving, Spring Break, etc)."
+        "\t\t\t\tSeptember through May \n\t\t\t\tWednesday-Saturday nights from 10pm-2am"
+        "\n\n*Safe Rides does not operate during official holidays/breaks during "
+        "the semester (ex. Thanksgiving, Spring Break, etc)."
     </string>
+    <string name="register_driver_title">Register as a Driver</string>
+    <string name="register_driver_intro">
+        "Welcome, please enter your name and Sac State ID to be entered "
+        "into the system as a driver for Safe Rides this evening."
+        "\n\nYou will only be registered if you have already completed the process "
+        "with the Safe Rides Coordinator."
+    </string>
+    <string name="cancel_ride_title">Cancel a Ride</string>
+    <string name="cancel_ride_intro">
+        "If you click the button, you are requesting that the ride be canceled.  If you "
+        "cancel the current Ride Request, you will have to fill out the form to request "
+        "another ride."
+        "\n\nAre you sure you wish to cancel this Ride Request?"
+    </string>
+    <string name="confirm_cancel">Confirm Cancel</string>
     <string name="driver_submit_button">Accept Ride</string>
 
 </resources>

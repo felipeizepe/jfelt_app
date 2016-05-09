@@ -15,8 +15,10 @@ public abstract class Entity implements Serializable{
 		this.id = id;
 		this.name = name;
 	}
-	
-	
+
+
+
+
 	public String getId() {
 		return id;
 	}

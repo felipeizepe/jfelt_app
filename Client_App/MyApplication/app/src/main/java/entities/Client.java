@@ -22,6 +22,12 @@ public class Client extends Entity implements Serializable{
 	//REMOVE LATER
 	private String ADflag; // using it to test the button to press once
 
+	public Client(){
+		super(null, null);
+		this.pickWithin10 = true;
+		this.dropWithin10 = true;
+		this.hasID = true;
+	}
 	public Client(String name, String id, String phoneNumber ,String pickUpAddress, String dropOffAddress,int numberOfClients,
 				  String otherCom, boolean hasID, boolean pickWithin10, boolean dropWithin10 ) {
 		super(id, name);
@@ -37,6 +43,7 @@ public class Client extends Entity implements Serializable{
 	}
 
 
+	//gets
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -57,9 +64,16 @@ public class Client extends Entity implements Serializable{
 		return ADflag;
 	}
 
+	//sets
 	public void setADflag(String aDflag) {
 		ADflag = aDflag;
 	}
+
+	public void setHasID( boolean a ){ hasID = a; }
+
+	public void setIsPickWithin10( boolean a ){ pickWithin10 = a; }
+
+	public void setIsDropWithin10( boolean a ){ dropWithin10 = a; }
 
 
 	public void assignDriver(Driver driver) {

@@ -10,6 +10,7 @@ import android.os.Message;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,11 +21,12 @@ import com.example.felipe.safe_drive_app.entities.AppLocationService;
 import com.example.felipe.safe_drive_app.entities.LocationAddress;
 
 import java.util.concurrent.ExecutionException;
+import entities.Client;
 
 public class RequestRide extends AppCompatActivity {
-    public final static String EXTRA_FIRSTNAME = "jfelt.saferides.FIRSTNAME";
-    public final static String EXTRA_LASTNAME = "jfelt.saferides.LASTNAME";
+    public final static String EXTRA_NAME = "jfelt.saferides.NAME";
     public final static String EXTRA_IDNUMBER = "jfelt.saferides.IDNUMBER";
+    public final static String EXTRA_PHONENUMBER = "jfelt.saferides.PHONENUMBER";
     public final static String EXTRA_PICKADD = "jfelt.saferides.PICKADD";
     public final static String EXTRA_DROPADD = "jfelt.saferides.DROPADD";
     public final static String EXTRA_COMMENT = "jfelt.saferides.COMMENTS";
@@ -35,9 +37,8 @@ public class RequestRide extends AppCompatActivity {
     AppLocationService appLocationService;
     Button gps_button;
     EditText pickup_address;
-    //RequestRideConfirm.Client client = new RequestRideConfirm.Client();
 
-    Client answers = new Client();
+    public static Client answers = new Client();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,110 +73,125 @@ public class RequestRide extends AppCompatActivity {
 
 
     }
-
+    //method for the yes/no checkboxes
     public void selectYesNo(View view) {
+
         boolean checked = ((CheckBox) view).isChecked();
         switch (view.getId()) {
 
             case R.id.request_quest_answer_yes_1:
                 if (checked) {
-                    answers.hasID = true;
+                    answers.setHasID(true);
                     CheckBox ansNo1 = (CheckBox) findViewById(R.id.request_quest_answer_no_1);
                     ansNo1.setChecked(false);
                 }
                 break;
             case R.id.request_quest_answer_no_1:
                 if (checked) {
-                    answers.hasID = false;
+                    answers.setHasID(false);
                     CheckBox ansYes1 = (CheckBox) findViewById(R.id.request_quest_answer_yes_1);
                     ansYes1.setChecked(false);
                 }
                 break;
             case R.id.request_quest_answer_yes_2:
                 if (checked) {
-                    answers.pickWithin10 = true;
+                    answers.setIsPickWithin10(true);
                     CheckBox ansNo2 = (CheckBox) findViewById(R.id.request_quest_answer_no_2);
                     ansNo2.setChecked(false);
                 }
                 break;
             case R.id.request_quest_answer_no_2:
                 if (checked) {
-                    answers.pickWithin10 = false;
+                    answers.setIsPickWithin10(false);
                     CheckBox ansYes2 = (CheckBox) findViewById(R.id.request_quest_answer_yes_2);
                     ansYes2.setChecked(false);
                 }
                 break;
             case R.id.request_quest_answer_yes_3:
                 if (checked) {
-                    answers.dropWithin10 = true;
+                    answers.setIsDropWithin10(true);
                     CheckBox ansNo3 = (CheckBox) findViewById(R.id.request_quest_answer_no_3);
                     ansNo3.setChecked(false);
                 }
                 break;
             case R.id.request_quest_answer_no_3:
                 if (checked) {
-                    answers.dropWithin10 = false;
+                    answers.setIsDropWithin10(false);
                     CheckBox ansYes3 = (CheckBox) findViewById(R.id.request_quest_answer_yes_3);
                     ansYes3.setChecked(false);
                 }
                 break;
-            case R.id.request_quest_answer_yes_4:
-                if (checked) {
-                    answers.groupSize = true;
-                    CheckBox ansNo4 = (CheckBox) findViewById(R.id.request_quest_answer_no_4);
-                    ansNo4.setChecked(false);
-                }
-                break;
-            case R.id.request_quest_answer_no_4:
-                if (checked) {
-                    answers.groupSize = false;
-                    CheckBox ansYes4 = (CheckBox) findViewById(R.id.request_quest_answer_yes_4);
-                    ansYes4.setChecked(false);
-                }
-                break;
-
-        }
+            }
     }
 
     public void sendToConfirmation(View view) {
-        Intent submitIntent = new Intent(this, RequestConfirmation.class);
-
-        EditText firstName = (EditText) findViewById(R.id.client_first_name);
-        String firstNameString = firstName.getText().toString();
-        submitIntent.putExtra(EXTRA_FIRSTNAME, firstNameString);
-
-        EditText lastName = (EditText) findViewById(R.id.client_last_name);
-        String lastNameString = lastName.getText().toString();
-        submitIntent.putExtra(EXTRA_LASTNAME, lastNameString);
-
+        EditText name = (EditText) findViewById(R.id.client_name);
+        String nameString = name.getText().toString();
+        if (TextUtils.isEmpty(nameString)) {
+            name.setError("Name is required.");
+        }
         EditText idNumber = (EditText) findViewById(R.id.client_id_number);
         String idNumberString = idNumber.getText().toString();
-        submitIntent.putExtra(EXTRA_IDNUMBER, idNumberString);
-
+        if (TextUtils.isEmpty(idNumberString)) {
+            idNumber.setError("Sac State ID is required.");
+        }
+        EditText phoneNumber = (EditText) findViewById(R.id.client_phone_number);
+        String phoneNumberString = phoneNumber.getText().toString();
+        if (TextUtils.isEmpty(phoneNumberString)) {
+            phoneNumber.setError("Phone number is required.");
+        }
         EditText pickupAddress = (EditText) findViewById(R.id.pickup_address);
         String pickupAddressString = pickupAddress.getText().toString();
-        submitIntent.putExtra(EXTRA_PICKADD, pickupAddressString);
-
+        if (TextUtils.isEmpty(pickupAddressString)) {
+            pickupAddress.setError("Pick-up address is required.");
+        }
         EditText dropoffAddress = (EditText) findViewById(R.id.dropoff_address);
         String dropoffAddressString = dropoffAddress.getText().toString();
-        submitIntent.putExtra(EXTRA_DROPADD, dropoffAddressString);
-
+        if (TextUtils.isEmpty(dropoffAddressString)) {
+            dropoffAddress.setError("Drop-off address is required.");
+        }
         EditText otherComments = (EditText) findViewById(R.id.other_comments);
         String otherCommentsString = otherComments.getText().toString();
-        submitIntent.putExtra(EXTRA_COMMENT, otherCommentsString);
+        if (TextUtils.isEmpty(otherCommentsString) && TextUtils.isEmpty(pickupAddressString)) {
+            otherComments.setError("If no pick-up address, a description of your location " +
+                    "is required.");
+        }
+        EditText groupSize = (EditText) findViewById(R.id.request_quest_answer_4);
+        String groupSizeString = groupSize.getText().toString();
+        if (TextUtils.isEmpty(groupSizeString)) {
+            groupSize.setError("Size of group is required.");
+        }
 
-        submitIntent.putExtra(EXTRA_HASID, answers.hasID);
-        submitIntent.putExtra(EXTRA_PICKWITHIN, answers.pickWithin10);
-        submitIntent.putExtra(EXTRA_DROPWITHIN, answers.dropWithin10);
-        submitIntent.putExtra(EXTRA_GROUPSIZE, answers.groupSize);
+        if(     !TextUtils.isEmpty(nameString)
+                && !TextUtils.isEmpty(idNumberString)
+                && !TextUtils.isEmpty(phoneNumberString)
+                && !TextUtils.isEmpty(pickupAddressString)
+                && !TextUtils.isEmpty(dropoffAddressString)
+                && !TextUtils.isEmpty(groupSizeString) ) {
 
-        startActivity(submitIntent);
+            Intent submitIntent = new Intent(this, RequestConfirmation.class);
+
+            submitIntent.putExtra(EXTRA_NAME, nameString);
+            submitIntent.putExtra(EXTRA_IDNUMBER, idNumberString);
+            submitIntent.putExtra(EXTRA_PHONENUMBER, phoneNumberString);
+            submitIntent.putExtra(EXTRA_PICKADD, pickupAddressString);
+            submitIntent.putExtra(EXTRA_DROPADD, dropoffAddressString);
+            submitIntent.putExtra(EXTRA_COMMENT, otherCommentsString);
+            submitIntent.putExtra(EXTRA_HASID, answers.hasID());
+            submitIntent.putExtra(EXTRA_PICKWITHIN, answers.isPickWithin10());
+            submitIntent.putExtra(EXTRA_DROPWITHIN, answers.isDropWithin10());
+            int groupSizeInt = Integer.parseInt(groupSizeString);
+            submitIntent.putExtra(EXTRA_GROUPSIZE, groupSizeInt);
+
+            startActivity(submitIntent);
+        }
     }
 
     public void showSettingsAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(RequestRide.this);
         alertDialog.setTitle("SETTINGS");
-        alertDialog.setMessage("GPS is disabled! Please enable it in your settings to use this feature.");
+        alertDialog.setMessage("GPS is disabled! Please enable it in your settings " +
+                "to use this feature.");
         alertDialog.setNegativeButton("Cancel",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

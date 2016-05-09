@@ -23,33 +23,30 @@ public class RequestConfirmation extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        String message = "Not Answered";
-        String firstNameClient = intent.getStringExtra(RequestRide.EXTRA_FIRSTNAME);
-        String lastNameClient = intent.getStringExtra(RequestRide.EXTRA_LASTNAME);
 
-        client = new Client( firstNameClient + " "  + lastNameClient,
+        client = new Client( intent.getStringExtra(RequestRide.EXTRA_NAME),
                 intent.getStringExtra(RequestRide.EXTRA_IDNUMBER),
-                "PHONE NUMBER",
+                intent.getStringExtra(RequestRide.EXTRA_PHONENUMBER),
                 intent.getStringExtra(RequestRide.EXTRA_PICKADD),
                 intent.getStringExtra(RequestRide.EXTRA_DROPADD),
-                0,//intent.getBooleanExtra(RequestRide.EXTRA_GROUPSIZE, false),
+                intent.getIntExtra(RequestRide.EXTRA_GROUPSIZE, 0),
                 intent.getStringExtra(RequestRide.EXTRA_COMMENT),
                 intent.getBooleanExtra(RequestRide.EXTRA_HASID, false),
                 intent.getBooleanExtra(RequestRide.EXTRA_PICKWITHIN, false),
                 intent.getBooleanExtra(RequestRide.EXTRA_DROPWITHIN, false));
 
 
-        TextView firstName = (TextView) findViewById(R.id.confirm_first_name_output);
-        if(firstNameClient != null)
-            firstName.setText(firstNameClient);
-
-        TextView lastName = (TextView) findViewById(R.id.confirm_last_name_output);
-        if(lastNameClient != null)
-            lastName.setText(lastNameClient);
+        TextView firstName = (TextView) findViewById(R.id.confirm_name_output);
+        if(client.getName() != null)
+            firstName.setText(client.getName());
 
         TextView idNumber = (TextView) findViewById(R.id.confirm_id_number_output);
         if(client.getId() != null)
             idNumber.setText(client.getId());
+
+        TextView phoneNumber = (TextView) findViewById(R.id.confirm_phone_number_output);
+        if(client.getPhoneNumber() != null)
+            phoneNumber.setText(client.getPhoneNumber());
 
         TextView pickAdd = (TextView) findViewById(R.id.confirm_pickup_address_output);
         if(client.getPickUpAddress() != null)
@@ -63,8 +60,8 @@ public class RequestConfirmation extends AppCompatActivity {
         if(client.getOtherComments() != null)
             textComments.setText(client.getOtherComments());
 
-        String yesMessage = "Yes";
-        String noMessage = "No";
+        final String yesMessage = "Yes";
+        final String noMessage = "No";
 
         TextView questAns1 = (TextView) findViewById(R.id.confirm_answer_1);
         if( client.hasID())
@@ -73,22 +70,22 @@ public class RequestConfirmation extends AppCompatActivity {
             questAns1.setText(noMessage);
 
         TextView questAns2 = (TextView) findViewById(R.id.confirm_answer_2);
-        if( client.hasID() )
+        if( client.isPickWithin10() )
             questAns2.setText(yesMessage);
         else
             questAns2.setText(noMessage);
 
         TextView questAns3 = (TextView) findViewById(R.id.confirm_answer_3);
-        if( client.hasID() )
+        if( client.isDropWithin10() )
             questAns3.setText(yesMessage);
         else
             questAns3.setText(noMessage);
 
+
         TextView questAns4 = (TextView) findViewById(R.id.confirm_answer_4);
-        if( client.hasID() )
-            questAns4.setText(yesMessage);
-        else
-            questAns4.setText(noMessage);
+
+        String test = String.valueOf(client.getNumberOfClients());
+        questAns4.setText( test );
 
         ct = null;
 

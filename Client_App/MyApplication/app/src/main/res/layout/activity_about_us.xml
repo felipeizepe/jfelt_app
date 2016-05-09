@@ -18,7 +18,7 @@
             android:id="@+id/about_info_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/about_hours_title"
+            android:text="@string/about_intro"
             android:textAllCaps="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_centerHorizontal="true"/>

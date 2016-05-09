@@ -8,12 +8,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <TextView
+            android:id="@+id/request_ride_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/request_ride_title"
+            android:textAllCaps="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
 
         <TextView
             android:id="@+id/request_intro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_below="@id/request_ride_title"
             android:layout_centerHorizontal="true"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
@@ -22,7 +32,7 @@
             android:layout_margin="10dp" />
 
         <EditText
-            android:id="@+id/client_first_name"
+            android:id="@+id/client_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -35,29 +45,16 @@
             android:paddingRight="16dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_margin="5dp" />
+            android:layout_margin="5dp"
+            android:imeOptions="actionNext"/>
 
-        <EditText
-            android:id="@+id/client_last_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/client_first_name"
-            android:ems="10"
-            android:hint="@string/last_name"
-            android:inputType="textCapWords|textPersonName"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_margin="5dp" />
+
 
         <EditText
             android:id="@+id/client_id_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/client_last_name"
+            android:layout_below="@id/client_name"
             android:ems="10"
             android:hint="@string/id_number"
             android:inputType="number"
@@ -67,13 +64,31 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_margin="5dp" />
+            android:layout_margin="5dp"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:id="@+id/client_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/client_id_number"
+            android:ems="10"
+            android:hint="@string/phone_number"
+            android:inputType="phone"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="5dp"
+            android:imeOptions="actionNext"/>
 
         <EditText
             android:id="@+id/pickup_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/client_id_number"
+            android:layout_below="@id/client_phone_number"
             android:ems="10"
             android:hint="@string/pickup_address"
             android:inputType="textCapWords|textPostalAddress"
@@ -83,7 +98,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_margin="5dp" />
+            android:layout_margin="5dp"
+            android:imeOptions="actionNext"/>
 
         <Button
             android:id="@+id/gps_button"
@@ -111,7 +127,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_margin="5dp" />
+            android:layout_margin="5dp"
+            android:imeOptions="actionNext" />
 
         <EditText
             android:id="@+id/other_comments"
@@ -127,7 +144,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_margin="5dp" />
+            android:layout_margin="5dp"
+            android:imeOptions="actionNext" />
 
         <TextView
 
@@ -250,27 +268,18 @@
             android:layout_alignParentStart="true"
             android:layout_margin="5dp" />
 
-        <CheckBox
-            android:id="@+id/request_quest_answer_yes_4"
+        <EditText
+            android:id="@+id/request_quest_answer_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/yes"
-            android:onClick="selectYesNo"
-            android:layout_below="@+id/request_quest_4"
-            android:layout_alignLeft="@+id/request_quest_answer_yes_1"
-            android:layout_alignStart="@+id/request_quest_answer_yes_1"
-            android:saveEnabled="true" />
-
-        <CheckBox
-            android:id="@+id/request_quest_answer_no_4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/no"
-            android:layout_below="@+id/request_quest_4"
-            android:layout_alignLeft="@+id/request_quest_answer_no_1"
-            android:layout_alignStart="@+id/request_quest_answer_no_1"
-            android:onClick="selectYesNo"
-            android:saveEnabled="true" />
+            android:layout_below="@id/request_quest_4"
+            android:hint="@string/number_hint"
+            android:inputType="number"
+            android:layout_alignRight="@+id/request_ride_title"
+            android:layout_alignEnd="@+id/request_ride_title"
+            android:layout_alignLeft="@+id/request_quest_answer_no_3"
+            android:layout_alignStart="@+id/request_quest_answer_no_3"
+            android:imeOptions="actionDone"/>
 
 
         <Button
@@ -280,7 +289,7 @@
             android:text="@string/submit_button"
             android:layout_alignParentBottom="true"
             android:onClick="sendToConfirmation"
-            android:layout_below="@id/request_quest_answer_yes_4"
+            android:layout_below="@id/request_quest_answer_4"
             android:layout_centerHorizontal="true" />
 
 

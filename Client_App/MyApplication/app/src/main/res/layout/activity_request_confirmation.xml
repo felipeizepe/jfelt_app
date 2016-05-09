@@ -8,10 +8,20 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/request_ride_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/request_ride_title"
+            android:textAllCaps="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        <TextView
             android:id="@+id/confirm_intro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_below="@id/request_ride_title"
             android:layout_centerHorizontal="true"
             android:layout_margin="10dp"
             android:paddingLeft="16dp"
@@ -20,7 +30,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/confirm_first_name_title"
+            android:id="@+id/confirm_name_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/confirm_intro"
@@ -31,31 +41,10 @@
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-            android:id="@+id/confirm_first_name_output"
+            android:id="@+id/confirm_name_output"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/confirm_first_name_title"
-            android:layout_margin="10dp"
-            android:paddingLeft="32dp"
-            android:paddingRight="16dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/confirm_last_name_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/confirm_first_name_output"
-            android:layout_margin="10dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:text="@string/last_name"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <TextView
-            android:id="@+id/confirm_last_name_output"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/confirm_last_name_title"
+            android:layout_below="@id/confirm_name_title"
             android:layout_margin="10dp"
             android:paddingLeft="32dp"
             android:paddingRight="16dp"
@@ -65,7 +54,7 @@
             android:id="@+id/confirm_id_number_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/confirm_last_name_output"
+            android:layout_below="@id/confirm_name_output"
             android:layout_margin="10dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
@@ -83,10 +72,31 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/confirm_pickup_address_title"
+            android:id="@+id/confirm_phone_number_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/confirm_id_number_output"
+            android:layout_margin="10dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="@string/phone_number_text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/confirm_phone_number_output"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/confirm_phone_number_title"
+            android:layout_margin="10dp"
+            android:paddingLeft="32dp"
+            android:paddingRight="16dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/confirm_pickup_address_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/confirm_phone_number_output"
             android:layout_margin="10dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
