@@ -1,0 +1,26 @@
+package managers;
+
+import java.util.ArrayList;
+
+import entities.Client;
+
+public class Client_Manager {
+
+	private static Client_Manager self = null;
+	private ArrayList<Client> clientList;
+	
+	public Client_Manager() {
+		self = this;
+		clientList = new ArrayList<>();
+	}
+	
+	
+	
+	public Client_Manager getInstance()
+	{
+		if(self == null)
+			self = new Client_Manager();
+		
+		return self;
+	}
+}

@@ -1,0 +1,21 @@
+package managers;
+
+public class Client_Manager {
+
+	private static Client_Manager self = null;
+	
+	
+	public Client_Manager() {
+		self = this;
+	}
+	
+	
+	
+	public Client_Manager getInstance()
+	{
+		if(self == null)
+			self = new Client_Manager();
+		
+		return self;
+	}
+}

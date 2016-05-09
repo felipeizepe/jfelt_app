@@ -1,0 +1,6 @@
+package managers;
+
+public class Client_Manager {
+
+	private static Client_Manager self;
+}

@@ -99,7 +99,7 @@ public class RequestConfirmation extends AppCompatActivity {
                 ct = new Connect_Thread();
                 try {
 
-                    ct.execute("").get();
+                    ct.execute("0").get();
                 } catch (InterruptedException e1) {
                     e1.printStackTrace();
                 } catch (ExecutionException e2) {

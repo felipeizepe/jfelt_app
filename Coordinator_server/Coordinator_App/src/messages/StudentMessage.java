@@ -54,7 +54,7 @@ public class StudentMessage implements Serializable{
 	 * @version 1.0
 	 * @since 2016-04-30
 	 */
-	public void serType(int type)
+	public void setType(int type)
 	{
 		switch(type){
 		case 0:
