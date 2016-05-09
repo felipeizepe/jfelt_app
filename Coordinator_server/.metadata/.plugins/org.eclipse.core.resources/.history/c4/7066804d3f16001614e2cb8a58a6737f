@@ -3,7 +3,6 @@ package managers;
 import java.util.ArrayList;
 
 
-
 import threads.Driver_Thread;
 import entities.Driver;
 
@@ -50,10 +49,5 @@ public class Driver_Manager {
 		}
 		
 		return ar;
-	}
-	
-	public void sendMessageToDriver(int index, String message)
-	{
-		this.driverList.get(index).sendMessage(message);
 	}
 }

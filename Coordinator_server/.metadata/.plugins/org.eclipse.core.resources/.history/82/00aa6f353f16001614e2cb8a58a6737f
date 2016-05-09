@@ -49,9 +49,4 @@ public class Client_Manager {
 		
 		return ar;
 	}
-	
-	public void sendMessageToCLient(int index, String message)
-	{
-		this.clientList.get(index).sendMessage(message);
-	}
 }

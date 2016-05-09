@@ -50,8 +50,8 @@ public class Client_Manager {
 		return ar;
 	}
 	
-	public void sendMessageToCLient(int index, String message)
+	public void sendMessageToCLient()
 	{
-		this.clientList.get(index).sendMessage(message);
+		
 	}
 }

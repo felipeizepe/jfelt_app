@@ -52,6 +52,6 @@ public class Client_Manager {
 	
 	public void sendMessageToCLient(int index, String message)
 	{
-		this.clientList.get(index).sendMessage(message);
+		this.clientList.get(index).sendMessage(message)
 	}
 }

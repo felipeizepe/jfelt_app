@@ -54,6 +54,6 @@ public class Driver_Manager {
 	
 	public void sendMessageToDriver(int index, String message)
 	{
-		this.driverList.get(index).sendMessage(message);
+		this.driverlist.get(index).sendMessage(message);
 	}
 }
