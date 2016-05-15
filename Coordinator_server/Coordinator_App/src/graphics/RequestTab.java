@@ -2,6 +2,7 @@ package graphics;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -20,8 +21,9 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import managers.Client_Manager;
+import threads.Client_Thread;
 import entities.Client;
-
 import entities.Client;
 import graphics.TextAreaRenderer;
 import graphics.Coord;
@@ -38,6 +40,7 @@ public class RequestTab extends JPanel{
 	private DefaultTableModel InfoViewModel = new DefaultTableModel();
 	private ArrayList<Client> clientRequest= new ArrayList<Client>();	
 	public DefaultListModel<Client> ARModel = new DefaultListModel<Client>();// accepted request model
+	JList<String> ClientRequestList;
 	
 	public ArrayList<Client> acceptList= new ArrayList<Client>();
 	final JList<Client> acceptedList = new JList<Client>();
@@ -47,8 +50,6 @@ public class RequestTab extends JPanel{
 		clientRequest.add(test);
 		clientRequest.add(test2);   
 		System.out.println(clientRequest);
-		    
-	 	
 	 	
 	
 	 	//final JList acceptedList = new JList();
@@ -70,7 +71,7 @@ public class RequestTab extends JPanel{
 		JLabel lblclientRequest = new JLabel("Client Request");
 		lblclientRequest.setBounds(20, 24, 161, 14);
 		add(lblclientRequest);
-		final JList<String> ClientRequestList = new JList<String>(Lmodel);
+		ClientRequestList = new JList<String>(Lmodel);
 	    ClientRequestList.setBounds(20, 36, 161, 578);
 	    add(ClientRequestList);
 	  System.out.println(clientRequest.get(0));
@@ -214,4 +215,29 @@ public class RequestTab extends JPanel{
 		        
 		    }
 		}
+	 
+	 @Override
+	public void paint(Graphics g) {
+		super.paint(g);
+		 int select = ClientRequestList.getSelectedIndex();
+		 ArrayList<Client> clientList = Client_Manager.getInstance().getClientList();
+		 for(Client ct : clientList)
+		 {
+			 if(!clientRequest.contains(ct))
+			 {
+				 clientRequest.add(ct);
+			 }
+		 }
+		 
+		 addCRmodel(clientList);
+		 
+		
+		 ClientRequestList.repaint();
+		 if(ClientInfoView != null)
+			 ClientInfoView.repaint();
+		 ClientRequestList.setSelectedIndex(select);
+		 
+		 repaint(2000);
+	}
+	 
 }

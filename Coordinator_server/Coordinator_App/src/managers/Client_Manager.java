@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import threads.Client_Thread;
 import entities.Client;
+import graphics.RequestTab;
 
 public class Client_Manager {
 
@@ -27,7 +28,7 @@ public class Client_Manager {
 	
 	public void addClientThread(Client_Thread client)
 	{
-		this.clientList.add(client);
+		this.clientList.add(client);	
 	}
 	
 	public Client getClientAt(int index)
