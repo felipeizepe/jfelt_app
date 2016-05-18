@@ -28,8 +28,9 @@ public class Client extends Entity implements Serializable{
 		this.dropWithin10 = true;
 		this.hasID = true;
 	}
-	public Client(String name, String id, String phoneNumber ,String pickUpAddress, String dropOffAddress,int numberOfClients,
-				  String otherCom, boolean hasID, boolean pickWithin10, boolean dropWithin10 ) {
+	public Client(String name, String id, String phoneNumber, String pickUpAddress,
+				  String dropOffAddress,int numberOfClients,  String otherCom,
+				  boolean hasID, boolean pickWithin10, boolean dropWithin10 ) {
 		super(id, name);
 		this.phoneNumber = phoneNumber;
 		this.pickUpAddress = pickUpAddress;
@@ -74,6 +75,10 @@ public class Client extends Entity implements Serializable{
 	public void setIsPickWithin10( boolean a ){ pickWithin10 = a; }
 
 	public void setIsDropWithin10( boolean a ){ dropWithin10 = a; }
+
+	public void setHasDriver( boolean a ){ hasDriver = a; }
+
+	public void setRequestMade( boolean a ){ requestMade = a; }
 
 
 	public void assignDriver(Driver driver) {

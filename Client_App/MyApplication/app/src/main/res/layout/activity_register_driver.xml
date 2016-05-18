@@ -17,43 +17,45 @@
         android:layout_below="@+id/register_driver_title"/>
 
     <EditText
-        android:id="@+id/driver_first_name"
+        android:id="@+id/driver_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/register_driver_intro"
-        android:ems="10"
+        android:background="@color/textBackground"
         android:hint="@string/first_name"
         android:inputType="textPersonName|textCapWords"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_margin="5dp" />
+        android:layout_margin="5dp"
+        android:saveEnabled="true"/>
 
     <EditText
-        android:id="@+id/driver_last_name"
+        android:id="@+id/driver_phone_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/driver_first_name"
-        android:ems="10"
+        android:layout_below="@id/driver_name"
+        android:background="@color/textBackground"
         android:hint="@string/phone_number_text"
-        android:inputType="textCapWords|textPersonName"
+        android:inputType="phone"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_margin="5dp" />
+        android:layout_margin="5dp"
+        android:saveEnabled="true"/>
 
     <EditText
         android:id="@+id/driver_id_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/driver_last_name"
-        android:ems="10"
+        android:layout_below="@id/driver_phone_number"
+        android:background="@color/textBackground"
         android:hint="@string/id_number"
         android:inputType="number"
         android:paddingLeft="16dp"
@@ -62,14 +64,15 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_margin="5dp" />
+        android:layout_margin="5dp"
+        android:saveEnabled="true"/>
 
     <Button
         android:id="@+id/register_submit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/submit_button"
-        android:onClick="sendRegisterDriverMessage"
+        android:onClick="openDriverScreen"
         android:layout_below="@id/driver_id_number"
         android:layout_centerHorizontal="true" />
 

@@ -87,5 +87,13 @@
     </string>
     <string name="confirm_cancel">Confirm Cancel</string>
     <string name="driver_submit_button">Accept Ride</string>
+    <string name="driver_screen_title">Driver Status</string>
+    <string name="ride_screen_title">Ride Status</string>
+    <string name="ride_status_header">Ride status is:</string>
+    <string name="ride_status_pending">Pending apporval</string>
+    <string name="ride_status_declined">Declined</string>
+    <string name="ride_status_approved">Approved</string>
+    <string name="ride_status_enroute">Driver on the way.</string>
+    <string name="incoming_message_header">Incoming Message:</string>
 
 </resources>

@@ -24,16 +24,7 @@ import java.util.concurrent.ExecutionException;
 import entities.Client;
 
 public class RequestRide extends AppCompatActivity {
-    public final static String EXTRA_NAME = "jfelt.saferides.NAME";
-    public final static String EXTRA_IDNUMBER = "jfelt.saferides.IDNUMBER";
-    public final static String EXTRA_PHONENUMBER = "jfelt.saferides.PHONENUMBER";
-    public final static String EXTRA_PICKADD = "jfelt.saferides.PICKADD";
-    public final static String EXTRA_DROPADD = "jfelt.saferides.DROPADD";
-    public final static String EXTRA_COMMENT = "jfelt.saferides.COMMENTS";
-    public final static String EXTRA_HASID = "jfelt.saferides.HASID";
-    public final static String EXTRA_PICKWITHIN = "jfelt.saferides.PICKWITHIN";
-    public final static String EXTRA_DROPWITHIN = "jfelt.saferides.DROPWITHIN";
-    public final static String EXTRA_GROUPSIZE = "jfelt.saferides.GROUPSIZE";
+
     AppLocationService appLocationService;
     Button gps_button;
     EditText pickup_address;
@@ -163,7 +154,8 @@ public class RequestRide extends AppCompatActivity {
         }
 
         if(     !TextUtils.isEmpty(nameString)
-                && !TextUtils.isEmpty(idNumberString)
+                && ( !TextUtils.isEmpty(idNumberString)
+                || !answers.hasID() )
                 && !TextUtils.isEmpty(phoneNumberString)
                 && !TextUtils.isEmpty(pickupAddressString)
                 && !TextUtils.isEmpty(dropoffAddressString)
@@ -171,17 +163,23 @@ public class RequestRide extends AppCompatActivity {
 
             Intent submitIntent = new Intent(this, RequestConfirmation.class);
 
-            submitIntent.putExtra(EXTRA_NAME, nameString);
-            submitIntent.putExtra(EXTRA_IDNUMBER, idNumberString);
-            submitIntent.putExtra(EXTRA_PHONENUMBER, phoneNumberString);
-            submitIntent.putExtra(EXTRA_PICKADD, pickupAddressString);
-            submitIntent.putExtra(EXTRA_DROPADD, dropoffAddressString);
-            submitIntent.putExtra(EXTRA_COMMENT, otherCommentsString);
-            submitIntent.putExtra(EXTRA_HASID, answers.hasID());
-            submitIntent.putExtra(EXTRA_PICKWITHIN, answers.isPickWithin10());
-            submitIntent.putExtra(EXTRA_DROPWITHIN, answers.isDropWithin10());
+            Bundle newBundle = new Bundle();
+
+            newBundle.putString("extra_name", nameString);
+            newBundle.putString("extra_id_number", idNumberString);
+            newBundle.putString("extra_phone_number", phoneNumberString);
+            newBundle.putString("extra_pickup_address", pickupAddressString);
+            newBundle.putString("extra_dropoff_address", dropoffAddressString);
+            newBundle.putString("extra_other_comments", otherCommentsString);
+            newBundle.putBoolean("extra_has_id", answers.hasID());
+            newBundle.putBoolean("extra_pick_within", answers.isPickWithin10());
+            newBundle.putBoolean("extra_drop_within", answers.isDropWithin10());
             int groupSizeInt = Integer.parseInt(groupSizeString);
-            submitIntent.putExtra(EXTRA_GROUPSIZE, groupSizeInt);
+            newBundle.putInt("extra_number_of_clients", groupSizeInt);
+            newBundle.putBoolean("extra_has_driver", answers.hasDriver());
+            newBundle.putBoolean("extra_request_made", answers.isRequestMade());
+
+            submitIntent.putExtras(newBundle);
 
             startActivity(submitIntent);
         }

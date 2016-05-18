@@ -33,21 +33,11 @@
         android:id="@+id/register_driver_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cancel_ride_button"
+        android:layout_below="@+id/request_ride_button"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="45dp"
         android:onClick="openRegisterDriver"
         android:text="@string/register_driver" />
-
-    <Button
-        android:id="@+id/cancel_ride_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/request_ride_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="45dp"
-        android:onClick="openCancelRide"
-        android:text="@string/cancel_ride" />
 
     <Button
         android:id="@+id/about_button"
@@ -58,5 +48,15 @@
         android:layout_marginTop="45dp"
         android:onClick="openAboutPage"
         android:text="@string/about_button" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/server_status"
+        android:layout_below="@+id/about_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="51dp"
+        android:textSize="20sp" />
 
 </RelativeLayout>
