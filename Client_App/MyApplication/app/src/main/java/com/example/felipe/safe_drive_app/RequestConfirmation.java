@@ -9,13 +9,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import java.util.concurrent.ExecutionException;
 import entities.Client;
+import managers.Manager;
 
 
 public class RequestConfirmation extends AppCompatActivity {
-
-    public static Client client;
-    private Connect_Thread ct;
-
+    private Client client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,27 +90,14 @@ public class RequestConfirmation extends AppCompatActivity {
         String test = String.valueOf(client.getNumberOfClients());
         questAns4.setText(test);
 
-        ct = null;
-
-        Connect_Thread.setConnected(false);
-
         Button fab = (Button) findViewById(R.id.confirm_submit_button);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                ct = new Connect_Thread();
-                try {
+                Manager.getInstance().Client_ConnectToServer(client);
 
-                    ct.execute("0").get();
-                } catch (InterruptedException e1) {
-                    e1.printStackTrace();
-                } catch (ExecutionException e2) {
-                    e2.printStackTrace();
-                }
-
-                ct.startCommunication();
-
+                openRideScreen(view);
             }
         });
     }
@@ -120,10 +105,8 @@ public class RequestConfirmation extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (ct != null)
-            ct.closeConnection();
 
-        Connect_Thread.setConnected(false);
+        Manager.getInstance().closeConnection();
         super.onBackPressed();
     }
 

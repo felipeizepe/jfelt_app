@@ -7,6 +7,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import managers.Driver_Manager;
+
 public class DriverServer extends Thread{
 
 	private ServerSocket serverSocket;
@@ -51,11 +53,9 @@ public class DriverServer extends Thread{
 	
 	public void messageAll(String message)
 	{
-		Driver_Thread ct;
 		for(int count1 = 0; count1 < drivers.size(); count1++)
 		{
-			ct = drivers.get(count1);
-			ct.sendMessage(message);
+			Driver_Manager.getInstance().sendMessageToDriver(count1, message);
 		}
 	}
 	

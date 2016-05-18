@@ -57,7 +57,6 @@ public class Client_Thread extends Thread {
 
 			try {
 					message = (StudentMessage) streamReader.readObject();
-					sendMessage(message.getMessage());
 					System.out.println(message.getMessage());
 					this.receiveMessage(message);
 			}catch(EOFException end)
@@ -102,11 +101,11 @@ public class Client_Thread extends Thread {
 	 *            - message to be sent
 	 * @return True if the message was send successfully and false otherwise
 	 */
-	public boolean sendMessage(String message) {
+	public boolean sendMessage(StudentMessage message) {
 
 		try {
-			StudentMessage sm = new StudentMessage(null, message);
-			streamWriter.writeObject(sm);
+
+			streamWriter.writeObject(message);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

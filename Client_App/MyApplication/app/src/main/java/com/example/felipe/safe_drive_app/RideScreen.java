@@ -3,14 +3,22 @@ package com.example.felipe.safe_drive_app;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import entities.Client;
+import entities.Driver;
+import managers.Manager;
+import messages.StudentMessage;
+import java.lang.InterruptedException;
 
 public class RideScreen extends AppCompatActivity {
 
-    Client client;
+    private Client client;
+    private TextView status;
+    private TextView message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +42,10 @@ public class RideScreen extends AppCompatActivity {
 
         client.setHasDriver(oldBundle.getBoolean("extra_has_driver"));
         client.setRequestMade(oldBundle.getBoolean("extra_request_made"));
+
+        this.status = (TextView) findViewById(R.id.ride_status_display);
+        this.message = (TextView) findViewById(R.id.request_incoming_message_display);
+        this.status.setText("Pending...");
 
         /*String pendingMessage = "Request pending.";
         String acceptedMessage = "Request accepted.";

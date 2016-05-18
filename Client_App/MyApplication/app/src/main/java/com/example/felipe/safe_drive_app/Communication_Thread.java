@@ -18,6 +18,10 @@ public class Communication_Thread extends Thread{
     private ObjectInputStream streamReader;
     private boolean execute;
     private boolean isClient;
+    private boolean hasNewStudentMessage;
+    private boolean hasNewDriverMessage;
+    private StudentMessage sm;
+    private DriverMessage dm;
 
 
 
@@ -27,6 +31,8 @@ public class Communication_Thread extends Thread{
         this.streamReader = new ObjectInputStream(server.getInputStream());
         this.execute = false;
         this.isClient = isClient;
+        this.hasNewStudentMessage = false;
+        this.hasNewDriverMessage = false;
     }
 
     public void  run() {
@@ -35,14 +41,14 @@ public class Communication_Thread extends Thread{
        while (execute) {
             try {
                 if(isClient) {
-                    StudentMessage messageReceived;
-                    messageReceived = (StudentMessage) streamReader.readObject();
-                    Log.i("info", messageReceived.getMessage());
+                    sm = (StudentMessage) streamReader.readObject();
+                    Log.i("info", sm.getMessage());
+                    hasNewStudentMessage = true;
                 }
                 else {
-                    DriverMessage messageReceived;
-                    messageReceived = (DriverMessage) streamReader.readObject();
-                    Log.i("info", messageReceived.getMessage());
+                    dm = (DriverMessage) streamReader.readObject();
+                    Log.i("info", dm.getMessage());
+                    hasNewDriverMessage = true;
                 }
 
 
@@ -80,5 +86,23 @@ public class Communication_Thread extends Thread{
     public boolean isExecuting()
     {
         return execute;
+    }
+
+    public boolean hasNewDriverMessage() {
+        return hasNewDriverMessage;
+    }
+
+    public boolean hasNewStudentMessage() {
+        return hasNewStudentMessage;
+    }
+
+    public DriverMessage getDriverMessage() {
+        hasNewDriverMessage = false;
+        return dm;
+    }
+
+    public StudentMessage getStudentMessage() {
+        hasNewStudentMessage = false;
+        return sm;
     }
 }

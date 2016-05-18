@@ -4,7 +4,11 @@ import java.util.ArrayList;
 
 
 
+
+
+import messages.DriverMessage;
 import threads.Driver_Thread;
+import entities.Client;
 import entities.Driver;
 
 public class Driver_Manager {
@@ -12,7 +16,7 @@ public class Driver_Manager {
 	private static Driver_Manager self = null;
 	private ArrayList<Driver_Thread> driverList;
 	
-	public Driver_Manager() {
+	private Driver_Manager() {
 		self = this;
 		this.driverList = new ArrayList<>();
 	}
@@ -27,7 +31,7 @@ public class Driver_Manager {
 		return self;
 	}
 	
-	public void addClientThread(Driver_Thread driver)
+	public void addDriverThread(Driver_Thread driver)
 	{
 		this.driverList.add(driver);
 	}
@@ -54,6 +58,15 @@ public class Driver_Manager {
 	
 	public void sendMessageToDriver(int index, String message)
 	{
-		this.driverList.get(index).sendMessage(message);
+		this.driverList.get(index).sendMessage(new DriverMessage(driverList.get(index).getOwner(), message));
+	}
+	
+	public void assignClientToDriver(int index, Client client)
+	{
+		Driver dv = driverList.get(index).getOwner();
+		dv.assignClient(client);
+		DriverMessage dm = new DriverMessage(dv, "Assign Client");
+		dm.setType(5);
+		driverList.get(index).sendMessage(dm);
 	}
 }

@@ -13,7 +13,7 @@ public class StudentMessage implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Operation MessageOperation;
 	private enum Operation{None, Message_To_Server, Message_To_Driver, 
-		Cancel_Request, Make_Request, Report_Error};
+		Cancel_Request, Make_Request, Report_Error, Assign_Driver};
 		
 		private Client owner;
 		private String message;
@@ -48,8 +48,8 @@ public class StudentMessage implements Serializable{
 	 * Sets the type of operation that the message will perform
 	 *
 	 *@param type - <b>0</b> send a message to the coordinator | <b>1</b> send a message to driver |
- 	 * <b>2</b> make a ride request | <b>3</b> cancel a ride | <b>4</b> report that an error occurred
-	 *
+ 	 * <b>2</b> make a ride request | <b>3</b> cancel a ride | <b>4</b> report that an error occurred |
+	 *<b>5</b> Assign a driver
 	 * @author Felipe Izepe
 	 * @version 1.0
 	 * @since 2016-04-30
@@ -69,6 +69,12 @@ public class StudentMessage implements Serializable{
 		case 3:
 			this.MessageOperation = Operation.Cancel_Request;
 			break;
+		case 4:
+			this.MessageOperation = Operation.Report_Error;
+			break;
+		case 5:
+			this.MessageOperation = Operation.Assign_Driver;
+			break;	
 		default:
 			return;
 		}
@@ -154,6 +160,14 @@ public class StudentMessage implements Serializable{
 	public String getMessage() {
 		return message;
 	}
+	
+	public boolean isAssignment()
+	{
+		if(MessageOperation == Operation.Assign_Driver)
+			return true;
+		return false;
+	}
+	
 	
 	
 }
