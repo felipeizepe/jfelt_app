@@ -59,7 +59,6 @@ public class Driver_Thread extends Thread {
 
 			try {
 				message = (DriverMessage) streamReader.readObject();
-				sendMessage(message.getMessage());
 				System.out.println(message.getMessage());
 				this.receiveMessage(message);
 			}catch(EOFException end)
@@ -105,11 +104,10 @@ public class Driver_Thread extends Thread {
 	 *            - message to be sent
 	 * @return True if the message was send successfully and false otherwise
 	 */
-	public boolean sendMessage(String message) {
+	public boolean sendMessage(DriverMessage message) {
 
 		try {
-			DriverMessage sm = new DriverMessage(null, message);
-			streamWriter.writeObject(sm);
+			streamWriter.writeObject(message);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -141,10 +139,11 @@ public class Driver_Thread extends Thread {
 	{
 		this.owner = message.getOwner();
 		
-		if(message.isMakeRequest())
+		if(message.isRegister())
 		{
 			//MAKE CHECK UP FOR DRIVER HERE BEFORE ADDING---------------------------------------------------------------
-			Driver_Manager.getInstance().addClientThread(this);
+			System.out.println(owner.getName());
+			Driver_Manager.getInstance().addDriverThread(this);
 		}
 		
 	}

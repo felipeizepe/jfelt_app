@@ -6,6 +6,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import managers.Client_Manager;
+
 public class ClientServer extends Thread{
 
 	private ServerSocket serverSocket;
@@ -57,11 +59,9 @@ public class ClientServer extends Thread{
 	 */
 	public void messageAll(String message)
 	{
-		Client_Thread ct;
 		for(int count1 = 0; count1 < clients.size(); count1++)
 		{
-			ct = clients.get(count1);
-			ct.sendMessage(message);
+			Client_Manager.getInstance().sendMessageToCLient(count1, message);
 		}
 	}
 	

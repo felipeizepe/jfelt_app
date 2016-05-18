@@ -6,17 +6,17 @@ import java.io.Serializable;
 import entities.Driver;
 
 public class DriverMessage implements Serializable{
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private Operation MessageOperation;
 	private enum Operation{None,Register, Message_To_Server, Message_To_Client,
-		Deny_Request, End_Night, Report_Error};
-		
-		private Driver owner;
-		private String message;
+		Deny_Request, End_Night, Report_Error, Assign_Client};
+
+	private Driver owner;
+	private String message;
 
 	/**
 	 * Constructor of the {@link StudentMessage} class
@@ -32,7 +32,7 @@ public class DriverMessage implements Serializable{
 		this.message = message;
 		this.MessageOperation = Operation.None;
 	}
-	
+
 	/**
 	 * Gets the owner of the message, null if sent by the server
 	 *
@@ -43,13 +43,13 @@ public class DriverMessage implements Serializable{
 	public Driver getOwner() {
 		return owner;
 	}
-	
+
 	/**
 	 * Sets the type of operation that the message will perform
 	 *
-	 *@param type - <b>0</b> send a message to the coordinator | <b>1</b> Register for the night  |<b>2</b> send a message to client |
- 	 * <b>3</b> deny a ride request | <b>4</b> end the night | <b>5</b> report that an error occurred
-	 *
+	 *@param type - <b>0</b> send a message to the coordinator | <b>1</b> send a message to client |
+	 * <b>2</b> deny a ride request | <b>3</b> end the night | <b>4</b> report that an error occurred |
+	 *<b>5</b> assign client
 	 * @author Felipe Izepe
 	 * @version 1.0
 	 * @since 2016-04-30
@@ -57,29 +57,29 @@ public class DriverMessage implements Serializable{
 	public void setType(int type)
 	{
 		switch(type){
-		case 0:
-			this.MessageOperation = Operation.Message_To_Server;
-			break;
-		case 1:
-				this.MessageOperation = Operation.Register;
+			case 0:
+				this.MessageOperation = Operation.Message_To_Server;
 				break;
-		case 2:
-			this.MessageOperation = Operation.Message_To_Client;
-			break;
-		case 3:
-			this.MessageOperation = Operation.Deny_Request;
-			break;
-		case 4:
+			case 1:
+				this.MessageOperation = Operation.Message_To_Client;
+				break;
+			case 2:
+				this.MessageOperation = Operation.Deny_Request;
+				break;
+			case 3:
 				this.MessageOperation = Operation.End_Night;
 				break;
-		case 5:
+			case 4:
 				this.MessageOperation = Operation.Report_Error;
 				break;
-		default:
-			return;
+			case 5:
+				this.MessageOperation = Operation.Assign_Client;
+				break;
+			default:
+				return;
 		}
 	}
-	
+
 	/**
 	 * Checks if the message is to be sent to the coordinator
 	 *
@@ -93,7 +93,7 @@ public class DriverMessage implements Serializable{
 			return true;
 		return false;
 	}
-	
+
 	/**
 	 * Checks if the message is to be sent to the Driver
 	 *
@@ -107,7 +107,7 @@ public class DriverMessage implements Serializable{
 			return true;
 		return false;
 	}
-	
+
 	/**
 	 * Checks if the message is to be sent to the coordinator as a request for a ride
 	 *
@@ -121,7 +121,7 @@ public class DriverMessage implements Serializable{
 			return true;
 		return false;
 	}
-	
+
 	/**
 	 * Checks if the message is to be sent to the coordinator to cancel a request
 	 *
@@ -135,7 +135,7 @@ public class DriverMessage implements Serializable{
 			return true;
 		return false;
 	}
-	
+
 	/**
 	 * Checks if the message is to be sent to the coordinator to report an error
 	 *
@@ -163,7 +163,7 @@ public class DriverMessage implements Serializable{
 			return true;
 		return false;
 	}
-	
+
 	/**
 	 * Returns The message given to the class
 	 *
@@ -175,6 +175,10 @@ public class DriverMessage implements Serializable{
 		return message;
 	}
 
-
-	
+	public boolean isAssign()
+	{
+		if(MessageOperation == Operation.Assign_Client)
+			return true;
+		return false;
+	}
 }

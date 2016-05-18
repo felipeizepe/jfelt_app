@@ -9,6 +9,8 @@ import android.util.Log;
 import java.io.IOException;
 import java.net.Socket;
 import java.io.ObjectOutputStream;
+
+import managers.Manager;
 import messages.StudentMessage;
 import messages.DriverMessage;
 import entities.Client;
@@ -44,7 +46,7 @@ public class Connect_Thread extends AsyncTask<String, Void, Integer> {
 
         try {
             if(message[0].equals("0")) {
-                Client ct = RequestConfirmation.client;
+                Client ct = Manager.getInstance().getClient();
 
 
                 Log.i("info name: ", ct.getName());
@@ -55,13 +57,13 @@ public class Connect_Thread extends AsyncTask<String, Void, Integer> {
 
             }else if(message[0].equals("1"))
             {
-                Driver ct = RegisterDriver.driver;
+                Driver ct = Manager.getInstance().getDriver();
 
 
                 Log.i("info name: ", ct.getName());
 
                 DriverMessage sm = new DriverMessage(ct, "Register Driver");
-                sm.setType(2);
+                sm.setType(1);
                 streamWriter.writeObject(sm);
             }
         } catch (IOException e) {
@@ -95,5 +97,9 @@ public class Connect_Thread extends AsyncTask<String, Void, Integer> {
         if(connected)
             if(!cm.isExecuting())
             cm.start();
+    }
+
+    public Communication_Thread getCommunication() {
+        return cm;
     }
 }

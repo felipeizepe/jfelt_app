@@ -2,16 +2,17 @@ package managers;
 
 import java.util.ArrayList;
 
+import messages.StudentMessage;
 import threads.Client_Thread;
 import entities.Client;
-import graphics.RequestTab;
+import entities.Driver;
 
 public class Client_Manager {
 
 	private static Client_Manager self = null;
 	private ArrayList<Client_Thread> clientList;
 	
-	public Client_Manager() {
+	private Client_Manager() {
 		self = this;
 		this.clientList = new ArrayList<>();
 	}
@@ -53,6 +54,15 @@ public class Client_Manager {
 	
 	public void sendMessageToCLient(int index, String message)
 	{
-		this.clientList.get(index).sendMessage(message);
+		this.clientList.get(index).sendMessage(new StudentMessage(clientList.get(index).getOwner(), message));
+	}
+	
+	public void assignDriverToClient(int index, Driver driver)
+	{
+		Client ct = clientList.get(index).getOwner();
+		ct.assignDriver(driver);
+		StudentMessage sm = new StudentMessage(ct, "Assign Driver");
+		sm.setType(5);
+		clientList.get(index).sendMessage(sm);
 	}
 }

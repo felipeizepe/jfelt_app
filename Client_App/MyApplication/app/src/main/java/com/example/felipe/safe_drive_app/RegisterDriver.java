@@ -16,12 +16,12 @@ import java.util.concurrent.ExecutionException;
 
 import entities.*;
 import entities.Driver;
+import managers.Manager;
 //>>>>>>>origin/master
 
 public class RegisterDriver extends AppCompatActivity {
 
-    public static entities.Driver driver;
-    private Connect_Thread ct;
+    private Driver driver;
     private EditText name;
     private EditText phone;
     private EditText id;
@@ -36,28 +36,13 @@ public class RegisterDriver extends AppCompatActivity {
        id = (EditText) findViewById(R.id.driver_id_number);
 
 
-
-        ct = null;
-
-        Connect_Thread.setConnected(false);
-
         Button fab = (Button) findViewById(R.id.register_submit_button);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 driver = new Driver(name.getText().toString(), id.getText().toString(),phone.getText().toString(), null, null);
-                ct = new Connect_Thread();
-                try {
-
-                    ct.execute("1").get();
-                } catch (InterruptedException e1) {
-                    e1.printStackTrace();
-                } catch (ExecutionException e2) {
-                    e2.printStackTrace();
-                }
-
-                ct.startCommunication();
+                Manager.getInstance().Driver_ConnectToServer(driver);
             }
         });
 
@@ -66,10 +51,7 @@ public class RegisterDriver extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(ct != null)
-            ct.closeConnection();
-
-        Connect_Thread.setConnected(false);
+       Manager.getInstance().closeConnection();
         super.onBackPressed();
     }
 
