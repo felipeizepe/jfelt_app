@@ -12,7 +12,7 @@ public class DriverMessage implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private Operation MessageOperation;
-	private enum Operation{None, Message_To_Server, Message_To_Client, 
+	private enum Operation{None,Register, Message_To_Server, Message_To_Client, 
 		Deny_Request, End_Night, Report_Error};
 		
 		private Driver owner;
@@ -140,6 +140,20 @@ public class DriverMessage implements Serializable{
 	public boolean isError()
 	{
 		if(MessageOperation == Operation.Report_Error)
+			return true;
+		return false;
+	}
+	
+	/**
+	 * Checks if the message is to be sent to the coordinator to report a registration as driver for the night
+	 *
+	 * @author Felipe Izepe
+	 * @version 1.0
+	 * @since 2016-05-09
+	 */
+	public boolean isRegister()
+	{
+		if(MessageOperation == Operation.Register)
 			return true;
 		return false;
 	}

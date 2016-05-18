@@ -7,7 +7,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+
+import entities.Driver;
+import managers.Driver_Manager;
 import messages.DriverMessage;
+
 
 public class Driver_Thread extends Thread {
 
@@ -15,6 +19,7 @@ public class Driver_Thread extends Thread {
 	private ObjectInputStream streamReader;
 	private ObjectOutputStream streamWriter;
 	private boolean execute;
+	private Driver owner;
 
 	/**
 	 * Constructor for the Driver_Thread class that receives the socket and
@@ -35,6 +40,7 @@ public class Driver_Thread extends Thread {
 		this.streamWriter = new ObjectOutputStream(
 				driverSocket.getOutputStream());
 		this.streamReader = new ObjectInputStream(driverSocket.getInputStream());
+		this.owner = null;
 
 	}
 
@@ -55,6 +61,7 @@ public class Driver_Thread extends Thread {
 				message = (DriverMessage) streamReader.readObject();
 				sendMessage(message.getMessage());
 				System.out.println(message.getMessage());
+				this.receiveMessage(message);
 			}catch(EOFException end)
 			{
 				try {
@@ -77,9 +84,10 @@ public class Driver_Thread extends Thread {
 		}
 
 		try {
-			streamReader.close();
+			
 			streamWriter.close();
 			driverSocket.close();
+			streamReader.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -120,6 +128,29 @@ public class Driver_Thread extends Thread {
 	 */
 	public void endConnection() {
 		this.execute = false;
+		try {
+			streamReader.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
+
+	private void receiveMessage(DriverMessage message)
+	{
+		this.owner = message.getOwner();
+		
+		if(message.isMakeRequest())
+		{
+			//MAKE CHECK UP FOR DRIVER HERE BEFORE ADDING---------------------------------------------------------------
+			Driver_Manager.getInstance().addClientThread(this);
+		}
+		
+	}
+	
+	public Driver getOwner() {
+		return owner;
+	}
+	
 }

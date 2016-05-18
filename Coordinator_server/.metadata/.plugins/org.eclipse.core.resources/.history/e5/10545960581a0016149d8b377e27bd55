@@ -1,0 +1,230 @@
+package graphics;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+
+import managers.Client_Manager;
+import threads.Client_Thread;
+import entities.Client;
+import entities.Client;
+import graphics.TextAreaRenderer;
+import graphics.Coord;
+
+public class RequestTab extends JPanel{
+
+	private Client test = new Client("CLIENT TEST 1", "0", "PHONE N1", "PICK UP ADdsfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaD", "DROP OFF ADD", 1, "COMMENT", true, true,true);
+	private Client test2 = new Client("CLIENT TEST 2", "1", "PHONE N2", "PICK UP ADD", "DROP OFF ADD", 5, "COMMENT", true, true,true);
+	
+	private DefaultListModel Lmodel = new DefaultListModel();
+	private JTable Infotable;
+	private JTextField textField_3;
+	private JTable ClientInfoView;
+	private DefaultTableModel InfoViewModel = new DefaultTableModel();
+	private ArrayList<Client> clientRequest= new ArrayList<Client>();	
+	public DefaultListModel<Client> ARModel = new DefaultListModel<Client>();// accepted request model
+	
+	public ArrayList<Client> acceptList= new ArrayList<Client>();
+	final JList<Client> acceptedList = new JList<Client>();
+	public RequestTab()
+     {	
+		setLayout(null);
+		clientRequest.add(test);
+		clientRequest.add(test2);   
+		System.out.println(clientRequest);
+	 	
+	
+	 	//final JList acceptedList = new JList();
+	    acceptedList.setBounds(10, 53, 201, 567);
+	   // panel_4.add(acceptedList);
+	    acceptedList.setCellRenderer(new ClientRenderer());   
+	                          
+	    
+		final JButton AcceptButton = new JButton("Accept ");                   //accept button if clicked return nothing happen                                      
+		AcceptButton.setEnabled(false);     
+		AcceptButton.setBounds(676, 482, 89, 23);
+		add(AcceptButton);
+	                                      
+		final JButton DenyButton = new JButton("Deny");                 // deny button if clicked return new InfoViewModel without the selected
+		DenyButton.setEnabled(false);                                          
+		DenyButton.setBounds(775, 482, 89, 23);
+		add(DenyButton);      
+		
+		JLabel lblclientRequest = new JLabel("Client Request");
+		lblclientRequest.setBounds(20, 24, 161, 14);
+		add(lblclientRequest);
+		final JList<String> ClientRequestList = new JList<String>(Lmodel);
+	    ClientRequestList.setBounds(20, 36, 161, 578);
+	    add(ClientRequestList);
+	  System.out.println(clientRequest.get(0));
+	    addCRmodel(clientRequest);         // testing data    
+	  
+	    
+	    JLabel lblClientsInfo = new JLabel("Client's Info");
+	    lblClientsInfo.setBounds(367, 24, 497, 14);
+	    add(lblClientsInfo);
+	    JScrollPane scrollPane = new JScrollPane();  
+	    scrollPane.setBounds(367, 36, 497, 435);
+	    add(scrollPane);      
+	    Infotable = new JTable();
+
+	    
+	    TableColumnModel cmodel = Infotable.getColumnModel(); 
+	    TextAreaRenderer textAreaRenderer = new TextAreaRenderer();  
+	    
+	        //Infotable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+	    scrollPane.setViewportView(Infotable);// client's info
+	    
+	    textField_3 = new JTextField();
+	    textField_3.setBounds(374, 516, 497, 34);
+	    add(textField_3);
+	    textField_3.setColumns(10);
+	    
+	                  
+	  
+	 
+	                                 
+	    ClientRequestList.addListSelectionListener(new ListSelectionListener() {
+	    	@Override
+	    	public void valueChanged(ListSelectionEvent arg0) {
+	        if (ClientRequestList.getSelectedValue() != null)
+	        {
+	        acceptedList.clearSelection();
+	        if (!arg0.getValueIsAdjusting()) 
+	        {
+	        	final DefaultTableModel EmptyTableModel = new DefaultTableModel(); //  to clear inforview table everytime a different item is selected
+	        	InfoViewModel=                  EmptyTableModel;
+	            Infotable.setModel(InfoViewModel);//    
+
+	            InfoViewModel.addColumn("Client's Attribute");
+	            InfoViewModel.addColumn("Client's Attribute Value");        
+	            InfoViewModel.addRow(new Object[]{"Name", clientRequest.get(ClientRequestList.getSelectedIndex()).getName()});
+	            InfoViewModel.addRow(new Object[]{"Phone Number", clientRequest.get(ClientRequestList.getSelectedIndex()).getPhoneNumber()});
+	            InfoViewModel.addRow(new Object[]{"Pick up Location",clientRequest.get(ClientRequestList.getSelectedIndex()).getPickUpAddress() }); 
+	            InfoViewModel.addRow(new Object[]{"Drop Off Location",clientRequest.get(ClientRequestList.getSelectedIndex()).getDropOffAddress() });   
+	            InfoViewModel.addRow(new Object[]{"Student ID",clientRequest.get(ClientRequestList.getSelectedIndex()).getId() }); 
+	            InfoViewModel.addRow(new Object[]{"Number of Clients",clientRequest.get(ClientRequestList.getSelectedIndex()).getNumberOfClients() }); 
+	            InfoViewModel.addRow(new Object[]{"Comments to Driver",clientRequest.get(ClientRequestList.getSelectedIndex()).getOtherComments() }); 
+	            
+	             Infotable.setModel(InfoViewModel);
+	            cmodel.getColumn(1).setCellRenderer(textAreaRenderer); 
+	             
+	             if(clientRequest.get(ClientRequestList.getSelectedIndex()).getADflag()=="Not Set")
+	             {
+	                 DenyButton.setEnabled(true);      
+	                 DenyButton.addActionListener(new ActionListener() {
+	                 public void actionPerformed(ActionEvent  e) {
+	                 if((!clientRequest.isEmpty())&&(ClientRequestList.getSelectedIndex()>=0))
+	                                                     	{
+	                                                     		clientRequest.get(ClientRequestList.getSelectedIndex()).setADflag("false");
+	                                                         	
+	                                                         	clientRequest.remove(ClientRequestList.getSelectedIndex());
+	                                                         	addCRmodel(clientRequest);						// reset Lmodel and add it to Lmodel
+	                                                         	ClientRequestList.setModel(Lmodel);
+	                                                     		
+	                                                     	}
+	                                                     
+	                                                   
+	                                                     }
+	                                                 });
+	                                                 AcceptButton.setEnabled(true);
+	                                                 AcceptButton.addActionListener(new ActionListener() {
+	                                                     public void actionPerformed(ActionEvent  e) {
+	                                                    
+	                                                     	if((!clientRequest.isEmpty())&&(ClientRequestList.getSelectedIndex()>=0))   
+	                                                     	{
+	                                                     	clientRequest.get(ClientRequestList.getSelectedIndex()).setADflag("true");
+	                                                     
+	                                                     	acceptList.add(clientRequest.get(ClientRequestList.getSelectedIndex()));   
+	                                                     	clientRequest.remove(ClientRequestList.getSelectedIndex());
+	                                                     	addCRmodel(clientRequest);									
+	                                                     	addARmodel(acceptList);
+	                                                     	acceptedList.setModel(ARModel);
+	                                                     	
+	                                                     	ClientRequestList.setModel(Lmodel);
+	                                                        System.out.println("here Size " +ARModel.getSize());
+	                                                	    if(ARModel.getSize()>0)
+	                                                	    System.out.println("here  " +ARModel.get(0).getName());
+	                                                        
+	                                                         }
+	                                                         AcceptButton.setEnabled(false);
+	                                                         DenyButton.setEnabled(false);
+	                                                         
+	                                                     }
+	                                                 });
+	                                             }
+	                                             else{
+	                                                 AcceptButton.setEnabled(false);
+	                                                 DenyButton.setEnabled(false);
+
+	                                             }
+	                                           
+	                                         }
+	                                     }}
+	                                 });
+	    
+       
+     }
+	public JList<Client> getAcceptedList(){
+		return this.acceptedList;
+	}
+	 @SuppressWarnings("unchecked")
+	 public void addCRmodel(ArrayList<Client> new_client)// add to ClientRequest Model 
+	 {
+	 	Lmodel.clear();
+	     for(int i =0; i <new_client.size(); i++ ){
+	     Lmodel.addElement(new_client.get(i).getName());
+	  }
+	   }
+	 public void addARmodel(ArrayList<Client> Accepted_client)// add to Accepted request model
+	 {
+	 	ARModel.clear();
+	     for(int i =0; i <Accepted_client.size(); i++ ){
+	     ARModel.addElement(Accepted_client.get(i));
+
+	     }
+	   }
+	 
+	 public class ClientRenderer extends DefaultListCellRenderer {
+		    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+		        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+		        if (value instanceof Client) {
+		            setText(((Client)value).getName());
+		            if(((Client)value).getAssignedDriver() != null )
+		            setBackground(Color.green);
+		        }
+		        return this;
+		        
+		    }
+		}
+	 
+	 @Override
+	public void paint(Graphics g) {
+		super.paint(g);
+		 ArrayList<Client> clientList = Client_Manager.getInstance().getClientList();
+		 for()
+		 {
+			 
+		 }
+		
+		repaint(250);
+	}
+	 
+}

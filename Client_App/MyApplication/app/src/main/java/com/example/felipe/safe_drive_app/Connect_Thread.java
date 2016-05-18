@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.net.Socket;
 import java.io.ObjectOutputStream;
 import messages.StudentMessage;
+import messages.DriverMessage;
 import entities.Client;
+import entities.Driver;
 
 public class Connect_Thread extends AsyncTask<String, Void, Integer> {
 
@@ -24,26 +26,44 @@ public class Connect_Thread extends AsyncTask<String, Void, Integer> {
 
         if(!connected) {
             try {
-                server = new Socket("10.0.2.2", 4444);  //connect to server
+                if(message[0].equals("0")) {
+                    server = new Socket("10.0.2.2", 4444);  //connect to server
+                    cm = new Communication_Thread(server,true);
+                }
+                if(message[0].equals("1")) {
+                    server = new Socket("10.0.2.2", 4445);  //connect to server
+                    cm = new Communication_Thread(server, false);
+                }
                 streamWriter = new ObjectOutputStream(server.getOutputStream());
                 connected = true;
-                cm = new Communication_Thread(server);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-
         try {
-            Client ct = RequestConfirmation.client;
+            if(message[0].equals("0")) {
+                Client ct = RequestConfirmation.client;
 
 
-            Log.i("info name: ", ct.getName());
+                Log.i("info name: ", ct.getName());
 
-            StudentMessage sm = new StudentMessage(ct, "REQUEST RIDE");
-            sm.serType(2);
-            streamWriter.writeObject(sm);
+                StudentMessage sm = new StudentMessage(ct, "REQUEST RIDE");
+                sm.setType(2);
+                streamWriter.writeObject(sm);
 
+            }else if(message[0].equals("1"))
+            {
+                Driver ct = RegisterDriver.driver;
+
+
+                Log.i("info name: ", ct.getName());
+
+                DriverMessage sm = new DriverMessage(ct, "Register Driver");
+                sm.setType(2);
+                streamWriter.writeObject(sm);
+            }
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

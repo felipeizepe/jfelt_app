@@ -5,6 +5,8 @@ import android.util.Log;
 import java.io.IOException;
 import java.net.Socket;
 import java.io.ObjectInputStream;
+
+import messages.DriverMessage;
 import messages.StudentMessage;
 
 /**
@@ -15,23 +17,34 @@ public class Communication_Thread extends Thread{
     private Socket server;
     private ObjectInputStream streamReader;
     private boolean execute;
+    private boolean isClient;
 
 
 
-    public Communication_Thread(Socket server) throws IOException
+    public Communication_Thread(Socket server, boolean isClient) throws IOException
     {
         this.server = server;
         this.streamReader = new ObjectInputStream(server.getInputStream());
         this.execute = false;
+        this.isClient = isClient;
     }
 
     public void  run() {
-        StudentMessage messageReceived;
+
         execute = true;
        while (execute) {
             try {
+                if(isClient) {
+                    StudentMessage messageReceived;
                     messageReceived = (StudentMessage) streamReader.readObject();
                     Log.i("info", messageReceived.getMessage());
+                }
+                else {
+                    DriverMessage messageReceived;
+                    messageReceived = (DriverMessage) streamReader.readObject();
+                    Log.i("info", messageReceived.getMessage());
+                }
+
 
             } catch (IOException e) {
                 execute = false;

@@ -12,7 +12,7 @@ public class DriverMessage implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private Operation MessageOperation;
-	private enum Operation{None, Message_To_Server, Message_To_Client, 
+	private enum Operation{None,Register, Message_To_Server, Message_To_Client,
 		Deny_Request, End_Night, Report_Error};
 		
 		private Driver owner;
@@ -47,28 +47,34 @@ public class DriverMessage implements Serializable{
 	/**
 	 * Sets the type of operation that the message will perform
 	 *
-	 *@param type - <b>0</b> send a message to the coordinator | <b>1</b> send a message to client |
- 	 * <b>2</b> deny a ride request | <b>3</b> end the night | <b>4</b> report that an error occurred
+	 *@param type - <b>0</b> send a message to the coordinator | <b>1</b> Register for the night  |<b>2</b> send a message to client |
+ 	 * <b>3</b> deny a ride request | <b>4</b> end the night | <b>5</b> report that an error occurred
 	 *
 	 * @author Felipe Izepe
 	 * @version 1.0
 	 * @since 2016-04-30
 	 */
-	public void serType(int type)
+	public void setType(int type)
 	{
 		switch(type){
 		case 0:
 			this.MessageOperation = Operation.Message_To_Server;
 			break;
 		case 1:
+				this.MessageOperation = Operation.Register;
+				break;
+		case 2:
 			this.MessageOperation = Operation.Message_To_Client;
 			break;
-		case 2: 
+		case 3:
 			this.MessageOperation = Operation.Deny_Request;
 			break;
-		case 3:
-			this.MessageOperation = Operation.End_Night;
-			break;
+		case 4:
+				this.MessageOperation = Operation.End_Night;
+				break;
+		case 5:
+				this.MessageOperation = Operation.Report_Error;
+				break;
 		default:
 			return;
 		}
@@ -143,6 +149,20 @@ public class DriverMessage implements Serializable{
 			return true;
 		return false;
 	}
+
+	/**
+	 * Checks if the message is to be sent to the coordinator to report a registration as driver for the night
+	 *
+	 * @author Felipe Izepe
+	 * @version 1.0
+	 * @since 2016-05-09
+	 */
+	public boolean isRegister()
+	{
+		if(MessageOperation == Operation.Register)
+			return true;
+		return false;
+	}
 	
 	/**
 	 * Returns The message given to the class
@@ -154,6 +174,7 @@ public class DriverMessage implements Serializable{
 	public String getMessage() {
 		return message;
 	}
-	
+
+
 	
 }
