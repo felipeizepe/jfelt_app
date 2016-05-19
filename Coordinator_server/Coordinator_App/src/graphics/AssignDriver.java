@@ -2,6 +2,7 @@ package graphics;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -27,14 +28,14 @@ import entities.Client;
 import entities.Driver;
 import entities.Client;
 import graphics.TextAreaRenderer;
+import managers.Client_Manager;
+import managers.Driver_Manager;
 
 
 
 public class AssignDriver extends JPanel{
 
-	private Driver Dtest = new Driver("DRIVER TEST 1", "13","PHONE N3", "LICENSE NUM", "CAR DESCRIPT");
-	private Driver Dtest2 = new Driver("DRIVER TEST 2", "13","PHONE N4", "LICENSE NUM2", "CAR DESCRIPT2");
-	private Driver Dtest3 = new Driver("DRIVER TEST 3", "13","PHONE N4", "LICENSE NUM3", "CAR DESCRIPT3");
+	//private Driver Dtest = new Driver("DRIVER TEST 1", "13","PHONE N3", "LICENSE NUM", "CAR DESCRIPT");
 	private JTable ClientInfoView;
 	private DefaultTableModel InfoViewModel = new DefaultTableModel();
 	private ArrayList<Client> clientRequest= new ArrayList<Client>();
@@ -43,7 +44,7 @@ public class AssignDriver extends JPanel{
 	private DefaultTableModel DriverViewModel = new DefaultTableModel();
 	private JTable DriverInfoView;
 	public JFrame frame;
-	
+	  JList<Driver> Avil_Driver = new JList<Driver>();
 	public AssignDriver(JList acceptedList)
      {
 	 	setLayout(null);
@@ -51,9 +52,8 @@ public class AssignDriver extends JPanel{
 	    
 	    
 	 	
-	    DAvil.add(Dtest);
-	    DAvil.add(Dtest2);
-	    DAvil.add(Dtest3);
+	  //  DAvil.add(Dtest);
+	 
 	    
 	 RequestTab RequestPanel= new RequestTab();
 	 	 add(acceptedList);
@@ -115,7 +115,7 @@ public class AssignDriver extends JPanel{
 	        add(scrollPane_2);
 	        
 	      
-	        final JList<Driver> Avil_Driver = new JList<Driver>();
+	       
 	        scrollPane_2.setViewportView(Avil_Driver);
 	        Avil_Driver.setModel(DriverInfoModel);
 	        Avil_Driver.setCellRenderer(new DriverRenderer());
@@ -151,19 +151,19 @@ public class AssignDriver extends JPanel{
 	        	@SuppressWarnings("unchecked")
 				public void actionPerformed(ActionEvent e) {
 	        		try{
-	        		if((((Driver) Avil_Driver.getSelectedValue()).hasRide()==false )&& ( ((Client) acceptedList.getSelectedValue()).hasDriver() ==false )){        		
-	        		((Driver) Avil_Driver.getSelectedValue()).assignClient(((Client) acceptedList.getSelectedValue()));        		
-	        		((Client) acceptedList.getSelectedValue()).assignDriver(((Driver) Avil_Driver.getSelectedValue()));
+	        			
+	        			/// index error because Driver_Manager has no size
+	        			if((Client_Manager.getInstance().getClientAt(acceptedList.getSelectedIndex()).hasDriver()==false)&&(Driver_Manager.getInstance().getDriverAt(Avil_Driver.getSelectedIndex()).hasRide()==false))
+	        			{
+	        				 Driver_Manager.getInstance().assignClientToDriver(Avil_Driver.getSelectedIndex(), ((Client) acceptedList.getSelectedValue()));
+	        				 Client_Manager.getInstance().assignDriverToClient(acceptedList.getSelectedIndex(), ((Driver) Avil_Driver.getSelectedValue()));
+	        				 acceptedList.remove(acceptedList.getSelectedIndex());
 	        		
-				//	DriverInfoView.setModel(DriverViewModel);				
-	        		Avil_Driver.setModel(DriverInfoModel);
-	        		acceptedList.setModel(acceptedList.getModel());
-	        		DriverInfoView.setModel(DriverViewModel);	
 	        		}else
-	        			JOptionPane.showMessageDialog(frame, "Error! Either the driver is currently in mission or the client is already been assigned a driver. Please double check.");
+	        			JOptionPane.showMessageDialog(frame, "Error! The driver is currently in mission. Please double check.");
 	        		
 	        	}catch(Exception ex){
-	        			JOptionPane.showMessageDialog(frame, "Error! Please Select Your Client And Driver. Thank You.");
+	        			JOptionPane.showMessageDialog(frame, "Error! Please Select Your Client And Driver. Thank You." +ex);
 	        		}
 	        }});
 	        btnAssign.setBounds(271, 320, 118, 23);
@@ -185,11 +185,11 @@ public class AssignDriver extends JPanel{
 	        JLabel lblDriversInformation = new JLabel("Driver 's Information");
 	        lblDriversInformation.setBounds(716, 336, 109, 14);
 	        add(lblDriversInformation);
-	        ////////////////////////********************* code for removing the client **************************************
+	        /*////////////////////////********************* code for removing the client **************************************
 	        JButton btnRemoveColor = new JButton("remove color"); //// just for testing can delete and will delete
 	        btnRemoveColor.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
-	        		//((Driver) Avil_Driver.getSelectedValue()).AssignClient(null);   // change the color back to normal    
+	        		//((Driver) Avil_Driver.getSelectedValue()).AssignClient(null);   // this line of code change the color back to normal    
 	        		if((RequestPanel.ARModel.size()>-1)&&(acceptedList.getSelectedIndex()>=0)){
 	        			RequestPanel.acceptList.remove(acceptedList.getSelectedIndex());
 	        			RequestPanel.ARModel.remove(acceptedList.getSelectedIndex());
@@ -198,14 +198,14 @@ public class AssignDriver extends JPanel{
 	        });
 	        btnRemoveColor.setBounds(271, 379, 118, 23);
 	       add(btnRemoveColor);
-	        
-	        JLabel lblGreenColor = new JLabel("Green Color = Client is assigned");
+	        */
+	       JLabel lblGreenColor = new JLabel("Green Color = Client is assigned");
 	        lblGreenColor.setBounds(434, 622, 205, 14);
 	       add(lblGreenColor);
-	        
+	        /*
 	        JLabel lblGreenColor_1 = new JLabel("Green Color = Driver is assigned");
 	        lblGreenColor_1.setBounds(10, 622, 205, 14);
-	       add(lblGreenColor_1);
+	       add(lblGreenColor_1);*/
 	       
 	       JLabel lblGreyColor = new JLabel("Grey Color = Selected");
 	       lblGreyColor.setBounds(271, 442, 118, 14);
@@ -220,5 +220,28 @@ public class AssignDriver extends JPanel{
 		    	DriverInfoModel.addElement(Avil_driver.get(i));
 		}
 
-	 
+	 @Override
+	public void paint(Graphics g) {
+		super.paint(g);
+		 int select = Avil_Driver.getSelectedIndex();
+		 ArrayList<Driver> DriverList = Driver_Manager.getInstance().getClientList();
+		
+		 for(Driver ct : DriverList)
+		 {
+			 if(!DAvil.contains(ct))
+			 {
+				 DAvil.add(ct);
+			 }
+		 }
+		 
+		 AddtoDriverInfoModel(DriverList);
+		 
+		
+		 Avil_Driver.repaint();
+		 
+		 Avil_Driver.setSelectedIndex(select);
+		 
+		 repaint(2000);
+		 
+	}
 }

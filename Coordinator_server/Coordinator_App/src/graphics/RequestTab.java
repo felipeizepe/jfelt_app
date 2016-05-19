@@ -1,7 +1,6 @@
 package graphics;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,39 +21,30 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 import managers.Client_Manager;
-import threads.Client_Thread;
-import entities.Client;
 import entities.Client;
 import graphics.TextAreaRenderer;
-import graphics.Coord;
 
 public class RequestTab extends JPanel{
 
-	private Client test = new Client("CLIENT TEST 1", "0", "PHONE N1", "PICK UP ADdsfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaD", "DROP OFF ADD", 1, "COMMENT", true, true,true);
-	private Client test2 = new Client("CLIENT TEST 2", "1", "PHONE N2", "PICK UP ADD", "DROP OFF ADD", 5, "COMMENT", true, true,true);
+
 	
-	private DefaultListModel Lmodel = new DefaultListModel();
-	private JTable Infotable;
+	private DefaultListModel<Client> Lmodel = new DefaultListModel<Client>();
+	private JTable Infotable= new JTable();
 	private JTextField textField_3;
-	private JTable ClientInfoView;
 	private DefaultTableModel InfoViewModel = new DefaultTableModel();
 	private ArrayList<Client> clientRequest= new ArrayList<Client>();	
-	public DefaultListModel<Client> ARModel = new DefaultListModel<Client>();// accepted request model
-	JList<String> ClientRequestList;
 	
+	public DefaultListModel<Client> ARModel = new DefaultListModel<Client>();// accepted request model
 	public ArrayList<Client> acceptList= new ArrayList<Client>();
 	final JList<Client> acceptedList = new JList<Client>();
+
+		JList<Client> ClientRequestList;
+	    TableColumnModel cmodel = Infotable.getColumnModel(); 
+	    TextAreaRenderer textAreaRenderer = new TextAreaRenderer();  
 	public RequestTab()
-     {	
-		setLayout(null);
-		clientRequest.add(test);
-		clientRequest.add(test2);   
-		System.out.println(clientRequest);
+     {	setLayout(null);
 	 	
-	
-	 	//final JList acceptedList = new JList();
-	    acceptedList.setBounds(10, 53, 201, 567);
-	   // panel_4.add(acceptedList);
+	    acceptedList.setBounds(10, 53, 201, 567);	
 	    acceptedList.setCellRenderer(new ClientRenderer());   
 	                          
 	    
@@ -71,12 +61,10 @@ public class RequestTab extends JPanel{
 		JLabel lblclientRequest = new JLabel("Client Request");
 		lblclientRequest.setBounds(20, 24, 161, 14);
 		add(lblclientRequest);
-		ClientRequestList = new JList<String>(Lmodel);
+		ClientRequestList = new JList<Client>(Lmodel);
 	    ClientRequestList.setBounds(20, 36, 161, 578);
 	    add(ClientRequestList);
-	  System.out.println(clientRequest.get(0));
-	    addCRmodel(clientRequest);         // testing data    
-	  
+	    ClientRequestList.setCellRenderer(new ClientRenderer());	  
 	    
 	    JLabel lblClientsInfo = new JLabel("Client's Info");
 	    lblClientsInfo.setBounds(367, 24, 497, 14);
@@ -84,24 +72,16 @@ public class RequestTab extends JPanel{
 	    JScrollPane scrollPane = new JScrollPane();  
 	    scrollPane.setBounds(367, 36, 497, 435);
 	    add(scrollPane);      
-	    Infotable = new JTable();
+	   
 
-	    
-	    TableColumnModel cmodel = Infotable.getColumnModel(); 
-	    TextAreaRenderer textAreaRenderer = new TextAreaRenderer();  
-	    
-	        //Infotable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 	    scrollPane.setViewportView(Infotable);// client's info
 	    
 	    textField_3 = new JTextField();
 	    textField_3.setBounds(374, 516, 497, 34);
 	    add(textField_3);
 	    textField_3.setColumns(10);
-	    
-	                  
-	  
-	 
-	                                 
+
+	    Infotable.getIgnoreRepaint();
 	    ClientRequestList.addListSelectionListener(new ListSelectionListener() {
 	    	@Override
 	    	public void valueChanged(ListSelectionEvent arg0) {
@@ -116,66 +96,49 @@ public class RequestTab extends JPanel{
 
 	            InfoViewModel.addColumn("Client's Attribute");
 	            InfoViewModel.addColumn("Client's Attribute Value");        
-	            InfoViewModel.addRow(new Object[]{"Name", clientRequest.get(ClientRequestList.getSelectedIndex()).getName()});
-	            InfoViewModel.addRow(new Object[]{"Phone Number", clientRequest.get(ClientRequestList.getSelectedIndex()).getPhoneNumber()});
-	            InfoViewModel.addRow(new Object[]{"Pick up Location",clientRequest.get(ClientRequestList.getSelectedIndex()).getPickUpAddress() }); 
-	            InfoViewModel.addRow(new Object[]{"Drop Off Location",clientRequest.get(ClientRequestList.getSelectedIndex()).getDropOffAddress() });   
-	            InfoViewModel.addRow(new Object[]{"Student ID",clientRequest.get(ClientRequestList.getSelectedIndex()).getId() }); 
-	            InfoViewModel.addRow(new Object[]{"Number of Clients",clientRequest.get(ClientRequestList.getSelectedIndex()).getNumberOfClients() }); 
-	            InfoViewModel.addRow(new Object[]{"Comments to Driver",clientRequest.get(ClientRequestList.getSelectedIndex()).getOtherComments() }); 
+	            InfoViewModel.addRow(new Object[]{"Name", ((Client) ClientRequestList.getSelectedValue()).getName()});
+	            InfoViewModel.addRow(new Object[]{"Phone Number", ((Client) ClientRequestList.getSelectedValue()).getPhoneNumber()});
+	            InfoViewModel.addRow(new Object[]{"Pick up Location",((Client) ClientRequestList.getSelectedValue()).getPickUpAddress()}); 
+	            InfoViewModel.addRow(new Object[]{"Drop Off Location",((Client) ClientRequestList.getSelectedValue()).getDropOffAddress()});   
+	            InfoViewModel.addRow(new Object[]{"Student ID",((Client) ClientRequestList.getSelectedValue()).getId()}); 
+	            InfoViewModel.addRow(new Object[]{"Number of Clients",((Client) ClientRequestList.getSelectedValue()).getNumberOfClients() }); 
+	            InfoViewModel.addRow(new Object[]{"Comments to Driver",((Client) ClientRequestList.getSelectedValue()).getOtherComments()}); 
 	            
 	             Infotable.setModel(InfoViewModel);
-	            cmodel.getColumn(1).setCellRenderer(textAreaRenderer); 
+	          // cmodel.getColumn(1).setCellRenderer(textAreaRenderer);   /// need this for wrap around however repaint is disrupting for somereason
 	             
-	             if(clientRequest.get(ClientRequestList.getSelectedIndex()).getADflag()=="Not Set")
-	             {
+	           
 	                 DenyButton.setEnabled(true);      
 	                 DenyButton.addActionListener(new ActionListener() {
 	                 public void actionPerformed(ActionEvent  e) {
 	                 if((!clientRequest.isEmpty())&&(ClientRequestList.getSelectedIndex()>=0))
-	                                                     	{
-	                                                     		clientRequest.get(ClientRequestList.getSelectedIndex()).setADflag("false");
-	                                                         	
-	                                                         	clientRequest.remove(ClientRequestList.getSelectedIndex());
-	                                                         	addCRmodel(clientRequest);						// reset Lmodel and add it to Lmodel
-	                                                         	ClientRequestList.setModel(Lmodel);
-	                                                     		
-	                                                     	}
+	                  	 Client_Manager.getInstance().removeClient(ClientRequestList.getSelectedIndex());
+	                 	ClientRequestList.clearSelection();  
+	             
 	                                                     
-	                                                   
-	                                                     }
-	                                                 });
+	                    }
+	                   });
 	                                                 AcceptButton.setEnabled(true);
 	                                                 AcceptButton.addActionListener(new ActionListener() {
 	                                                     public void actionPerformed(ActionEvent  e) {
 	                                                    
-	                                                     	if((!clientRequest.isEmpty())&&(ClientRequestList.getSelectedIndex()>=0))   
-	                                                     	{
-	                                                     	clientRequest.get(ClientRequestList.getSelectedIndex()).setADflag("true");
-	                                                     
-	                                                     	acceptList.add(clientRequest.get(ClientRequestList.getSelectedIndex()));   
-	                                                     	clientRequest.remove(ClientRequestList.getSelectedIndex());
-	                                                     	addCRmodel(clientRequest);									
-	                                                     	addARmodel(acceptList);
-	                                                     	acceptedList.setModel(ARModel);
+	                  if((!clientRequest.isEmpty())&&(ClientRequestList.getSelectedIndex()>=0))   
+	                 {
 	                                                     	
-	                                                     	ClientRequestList.setModel(Lmodel);
-	                                                        System.out.println("here Size " +ARModel.getSize());
-	                                                	    if(ARModel.getSize()>0)
-	                                                	    System.out.println("here  " +ARModel.get(0).getName());
-	                                                        
+	                	  acceptList.add(ClientRequestList.getSelectedValue());                         
+	                	  //acceptList.add(Client_Manager.getInstance().getClientAt(ClientRequestList.getSelectedIndex()));
+	                      Client_Manager.getInstance().removeClient(ClientRequestList.getSelectedIndex());	                                                    	 
+	                      addARmodel(acceptList);
+	                      acceptedList.setModel(ARModel);	                                                     	
+	                      ClientRequestList.clearSelection();                               	
+	                                                   
 	                                                         }
 	                                                         AcceptButton.setEnabled(false);
 	                                                         DenyButton.setEnabled(false);
 	                                                         
 	                                                     }
 	                                                 });
-	                                             }
-	                                             else{
-	                                                 AcceptButton.setEnabled(false);
-	                                                 DenyButton.setEnabled(false);
-
-	                                             }
+	                                           
 	                                           
 	                                         }
 	                                     }}
@@ -191,7 +154,8 @@ public class RequestTab extends JPanel{
 	 {
 	 	Lmodel.clear();
 	     for(int i =0; i <new_client.size(); i++ ){
-	     Lmodel.addElement(new_client.get(i).getName());
+	     Lmodel.addElement(new_client.get(i));
+	    
 	  }
 	   }
 	 public void addARmodel(ArrayList<Client> Accepted_client)// add to Accepted request model
@@ -221,6 +185,7 @@ public class RequestTab extends JPanel{
 		super.paint(g);
 		 int select = ClientRequestList.getSelectedIndex();
 		 ArrayList<Client> clientList = Client_Manager.getInstance().getClientList();
+		
 		 for(Client ct : clientList)
 		 {
 			 if(!clientRequest.contains(ct))
@@ -233,11 +198,12 @@ public class RequestTab extends JPanel{
 		 
 		
 		 ClientRequestList.repaint();
-		 if(ClientInfoView != null)
-			 ClientInfoView.repaint();
+		 if(Infotable != null)
+			 Infotable.repaint();
 		 ClientRequestList.setSelectedIndex(select);
 		 
 		 repaint(2000);
+		 
 	}
 	 
 }

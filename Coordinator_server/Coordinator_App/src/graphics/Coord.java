@@ -102,7 +102,7 @@ private void initialize() {
                                                         
 /////////Statistic
  StatisticTab StatisticPanel = new StatisticTab();
- tabbedPane.addTab("Request", null, StatisticPanel, null);
+ tabbedPane.addTab("Statistic", null, StatisticPanel, null);
                                                        
 
 }
