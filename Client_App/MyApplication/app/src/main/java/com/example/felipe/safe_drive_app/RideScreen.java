@@ -17,8 +17,8 @@ import java.lang.InterruptedException;
 public class RideScreen extends AppCompatActivity {
 
     private Client client;
-    private TextView status;
-    private TextView message;
+    public static TextView status;
+    public static TextView message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,27 @@ public class RideScreen extends AppCompatActivity {
 
         this.status = (TextView) findViewById(R.id.ride_status_display);
         this.message = (TextView) findViewById(R.id.request_incoming_message_display);
-        this.status.setText("Pending...");
+
+
+        while(!Manager.getInstance().Client_HasNewMessage());
+
+        StudentMessage sm = Manager.getInstance().Client_ReceiveNewMessge();
+
+            if (sm.isAssignment()) {
+                Driver driver = sm.getOwner().getAssignedDriver();
+                RideScreen.status.setText("Request accepted.");
+                RideScreen.message.append("Driver Info: \n");
+                RideScreen.message.append("Name: " + driver.getName() + "\n");
+                RideScreen.message.append("Phone-Number: " + driver.getPhoneNumber() + "\n");
+                RideScreen.message.append("License: " + driver.getLicense() + "\n");
+                RideScreen.message.append("Car description: " + driver.getCarDescription() + "\n");
+
+            }else
+            {
+                RideScreen.status.setText("Request Denied.");
+            }
+
+
 
         /*String pendingMessage = "Request pending.";
         String acceptedMessage = "Request accepted.";

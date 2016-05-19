@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.concurrent.ExecutionException;
-
+import android.os.SystemClock;
 import entities.*;
 import entities.Driver;
 import managers.Manager;
@@ -43,6 +43,8 @@ public class RegisterDriver extends AppCompatActivity {
 
                 driver = new Driver(name.getText().toString(), id.getText().toString(),phone.getText().toString(), null, null);
                 Manager.getInstance().Driver_ConnectToServer(driver);
+
+                openDriverScreen(view);
             }
         });
 

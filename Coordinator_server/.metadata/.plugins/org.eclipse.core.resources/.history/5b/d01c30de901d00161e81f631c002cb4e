@@ -125,8 +125,7 @@ public class RequestTab extends JPanel{
 	                  if((!clientRequest.isEmpty())&&(ClientRequestList.getSelectedIndex()>=0))   
 	                 {
 	                                                     	
-	                	  acceptList.add(ClientRequestList.getSelectedValue());  
-	                	  clientRequest.remove(ClientRequestList.getSelectedValue());
+	                	  acceptList.add(ClientRequestList.getSelectedValue());                         
 	                	  //acceptList.add(Client_Manager.getInstance().getClientAt(ClientRequestList.getSelectedIndex()));                                                    	 
 	                      addARmodel(acceptList);
 	                      acceptedList.setModel(ARModel);	                                                     	
@@ -188,7 +187,7 @@ public class RequestTab extends JPanel{
 		
 		 for(Client ct : clientList)
 		 {
-			 if(!clientRequest.contains(ct) && !acceptList.contains(ct))
+			 if(!clientRequest.contains(ct))
 			 {
 				 clientRequest.add(ct);
 			 }

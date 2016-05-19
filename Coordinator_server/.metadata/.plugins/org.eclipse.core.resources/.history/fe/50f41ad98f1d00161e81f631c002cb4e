@@ -154,11 +154,11 @@ public class AssignDriver extends JPanel{
 	        			
 	        			/// index error because Driver_Manager has no size
 	        			Client client = Client_Manager.getInstance().getClientAt(acceptedList.getSelectedIndex());
-	        			Driver driver = Driver_Manager.getInstance().getDriverAt(Avil_Driver.getSelectedIndex());
+	        			Driver driver = Driver_Manager.getInstance().getDriverAt(Avil_Driver.getSelectedIndex())
 	        			if((client.hasDriver()==false)&&(driver.hasRide()==false))
 	        			{
-	        				 Driver_Manager.getInstance().assignClientToDriver(Avil_Driver.getSelectedIndex(), client);
-	        				 Client_Manager.getInstance().assignDriverToClient(acceptedList.getSelectedIndex(), driver);
+	        				 Driver_Manager.getInstance().assignClientToDriver(acceptedList.getSelectedIndex(), client);
+	        				 Client_Manager.getInstance().assignDriverToClient(acceptedList.getSelectedIndex(), ((Driver) Avil_Driver.getSelectedValue()));
 	        				 acceptedList.remove(acceptedList.getSelectedIndex());
 	        		
 	        		}else

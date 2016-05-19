@@ -104,6 +104,7 @@ public class Client_Thread extends Thread {
 	public boolean sendMessage(StudentMessage message) {
 
 		try {
+
 			streamWriter.writeObject(message);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

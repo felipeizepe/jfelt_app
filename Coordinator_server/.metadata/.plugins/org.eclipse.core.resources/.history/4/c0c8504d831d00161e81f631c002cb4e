@@ -153,12 +153,10 @@ public class AssignDriver extends JPanel{
 	        		try{
 	        			
 	        			/// index error because Driver_Manager has no size
-	        			Client client = Client_Manager.getInstance().getClientAt(acceptedList.getSelectedIndex());
-	        			Driver driver = Driver_Manager.getInstance().getDriverAt(Avil_Driver.getSelectedIndex());
-	        			if((client.hasDriver()==false)&&(driver.hasRide()==false))
+	        			if((Client_Manager.getInstance().getClientAt(acceptedList.getSelectedIndex()).hasDriver()==false)&&(Driver_Manager.getInstance().getDriverAt(Avil_Driver.getSelectedIndex()).hasRide()==false))
 	        			{
-	        				 Driver_Manager.getInstance().assignClientToDriver(Avil_Driver.getSelectedIndex(), client);
-	        				 Client_Manager.getInstance().assignDriverToClient(acceptedList.getSelectedIndex(), driver);
+	        				 Driver_Manager.getInstance().assignClientToDriver(Avil_Driver.getSelectedIndex(), ((Client) acceptedList.getSelectedValue()));
+	        				 Client_Manager.getInstance().assignDriverToClient(acceptedList.getSelectedIndex(), ((Driver) Avil_Driver.getSelectedValue()));
 	        				 acceptedList.remove(acceptedList.getSelectedIndex());
 	        		
 	        		}else
@@ -226,7 +224,7 @@ public class AssignDriver extends JPanel{
 	public void paint(Graphics g) {
 		super.paint(g);
 		 int select = Avil_Driver.getSelectedIndex();
-		 ArrayList<Driver> DriverList = Driver_Manager.getInstance().getDriverList();
+		 ArrayList<Driver> DriverList = Driver_Manager.getInstance().getClientList();
 		
 		 for(Driver ct : DriverList)
 		 {

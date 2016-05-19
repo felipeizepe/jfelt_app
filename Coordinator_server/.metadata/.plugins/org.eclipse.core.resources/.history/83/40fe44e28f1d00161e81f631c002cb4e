@@ -158,7 +158,7 @@ public class AssignDriver extends JPanel{
 	        			if((client.hasDriver()==false)&&(driver.hasRide()==false))
 	        			{
 	        				 Driver_Manager.getInstance().assignClientToDriver(Avil_Driver.getSelectedIndex(), client);
-	        				 Client_Manager.getInstance().assignDriverToClient(acceptedList.getSelectedIndex(), driver);
+	        				 Client_Manager.getInstance().assignDriverToClient(acceptedList.getSelectedIndex(), ((Driver) Avil_Driver.getSelectedValue()));
 	        				 acceptedList.remove(acceptedList.getSelectedIndex());
 	        		
 	        		}else

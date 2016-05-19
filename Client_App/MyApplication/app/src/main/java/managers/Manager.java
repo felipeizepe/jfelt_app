@@ -2,6 +2,8 @@ package managers;
 
 import com.example.felipe.safe_drive_app.Communication_Thread;
 import com.example.felipe.safe_drive_app.Connect_Thread;
+import com.example.felipe.safe_drive_app.DriverScreen;
+import com.example.felipe.safe_drive_app.RideScreen;
 
 import java.util.concurrent.ExecutionException;
 
@@ -18,7 +20,6 @@ public class Manager {
     private Client client;
     private Driver driver;
     private Connect_Thread ct;
-    private static Communication_Thread cm;
 
     private Manager()
     {
@@ -89,14 +90,14 @@ public class Manager {
     }
 
 
-    public boolean Client_HasNewMessge()
+    public boolean Client_HasNewMessage()
     {
         return ct.getCommunication().hasNewStudentMessage();
     }
 
-    public boolean Driver_HasNewMessge()
+    public boolean Driver_HasNewMessage()
     {
-        return ct.getCommunication().hasNewStudentMessage();
+        return ct.getCommunication().hasNewDriverMessage();
     }
 
     public StudentMessage Client_ReceiveNewMessge()
@@ -108,5 +109,6 @@ public class Manager {
     {
         return ct.getCommunication().getDriverMessage();
     }
+
 }
 
