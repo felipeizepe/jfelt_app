@@ -33,7 +33,7 @@
 <fullyQualifiedTypeName name="entities.Driver"/>
 <fullyQualifiedTypeName name="entities.Client"/>
 <fullyQualifiedTypeName name="messages.StudentMessage"/>
-<fullyQualifiedTypeName name="managers.Client_Manager"/>
 <fullyQualifiedTypeName name="messages.DriverMessage"/>
 <fullyQualifiedTypeName name="managers.Driver_Manager"/>
+<fullyQualifiedTypeName name="managers.Client_Manager"/>
 </qualifiedTypeNameHistroy>
