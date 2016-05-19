@@ -13,12 +13,14 @@ import entities.Driver;
 
 public class Driver_Manager {
 
+
 	private static Driver_Manager self = null;
 	private ArrayList<Driver_Thread> driverList;
-	
+
 	private Driver_Manager() {
 		self = this;
 		this.driverList = new ArrayList<>();
+		
 	}
 	
 	
@@ -52,7 +54,7 @@ public class Driver_Manager {
 		{
 			ar.add(driverList.get(count1).getOwner());
 		}
-		
+	
 		return ar;
 	}
 	
