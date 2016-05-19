@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/request_ride_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/request_ride_title"
+            android:textAllCaps="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+
+        <TextView
+            android:id="@+id/request_intro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/request_ride_title"
+            android:layout_centerHorizontal="true"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="@string/request_intro"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_margin="10dp" />
+
+        <EditText
+            android:id="@+id/client_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/request_intro"
+            android:background="@color/textBackground"
+            android:hint="@string/first_name"
+            android:inputType="textPersonName|textCapWords"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="5dp"
+            android:imeOptions="actionNext"/>
+
+
+
+        <EditText
+            android:id="@+id/client_id_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/client_name"
+            android:background="@color/textBackground"
+            android:hint="@string/id_number"
+            android:inputType="number"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="5dp"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:id="@+id/client_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/client_id_number"
+            android:background="@color/textBackground"
+            android:hint="@string/phone_number"
+            android:inputType="phone"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="5dp"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:id="@+id/pickup_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/client_phone_number"
+            android:background="@color/textBackground"
+            android:hint="@string/pickup_address"
+            android:inputType="textCapWords|textPostalAddress"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="5dp"
+            android:imeOptions="actionNext"/>
+
+        <Button
+            android:id="@+id/gps_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/get_gps_button"
+            android:onClick="getGPSLocation"
+            android:layout_below="@+id/pickup_address"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp" />
+
+
+
+        <EditText
+            android:id="@+id/dropoff_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gps_button"
+            android:background="@color/textBackground"
+            android:hint="@string/dropoff_address"
+            android:inputType="textCapWords|textPostalAddress"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="5dp"
+            android:imeOptions="actionNext" />
+
+        <EditText
+            android:id="@+id/other_comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dropoff_address"
+            android:background="@color/textBackground"
+            android:hint="@string/other_comments"
+            android:inputType="textMultiLine"
+            android:maxLines="4"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="5dp"
+            android:imeOptions="actionNext" />
+
+        <TextView
+
+            android:id="@+id/request_quest_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/request_question_1"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_below="@+id/other_comments"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="5dp" />
+
+        <CheckBox
+            android:id="@+id/request_quest_answer_yes_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/textBackground"
+            android:ems="4"
+            android:text="@string/yes"
+            android:onClick="selectYesNo"
+            android:saveEnabled="true"
+            android:layout_below="@+id/request_quest_1"
+            android:layout_toLeftOf="@+id/ride_submit_button"
+            android:layout_toStartOf="@+id/ride_submit_button" />
+
+        <CheckBox
+            android:id="@+id/request_quest_answer_no_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/textBackground"
+            android:ems="4"
+            android:text="@string/no"
+            android:onClick="selectYesNo"
+            android:saveEnabled="true"
+            android:layout_above="@+id/request_quest_2"
+            android:layout_alignRight="@+id/request_quest_1"
+            android:layout_alignEnd="@+id/request_quest_1"
+            android:layout_marginRight="51dp"
+            android:layout_marginEnd="51dp" />
+
+        <TextView
+            android:id="@+id/request_quest_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/request_question_2"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_below="@+id/request_quest_answer_yes_1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="5dp" />
+
+        <CheckBox
+            android:id="@+id/request_quest_answer_yes_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/textBackground"
+            android:ems="4"
+            android:text="@string/yes"
+            android:onClick="selectYesNo"
+            android:layout_below="@+id/request_quest_2"
+            android:layout_alignLeft="@+id/request_quest_answer_yes_1"
+            android:layout_alignStart="@+id/request_quest_answer_yes_1"
+            android:saveEnabled="true" />
+
+        <CheckBox
+            android:id="@+id/request_quest_answer_no_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/textBackground"
+            android:ems="4"
+            android:text="@string/no"
+            android:onClick="selectYesNo"
+            android:saveEnabled="true"
+            android:layout_below="@+id/request_quest_2"
+            android:layout_alignLeft="@+id/request_quest_answer_no_1"
+            android:layout_alignStart="@+id/request_quest_answer_no_1" />
+
+        <TextView
+            android:id="@+id/request_quest_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/request_question_3"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_below="@+id/request_quest_answer_yes_2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="5dp" />
+
+        <CheckBox
+            android:id="@+id/request_quest_answer_yes_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/textBackground"
+            android:ems="4"
+            android:text="@string/yes"
+            android:onClick="selectYesNo"
+            android:layout_below="@+id/request_quest_3"
+            android:layout_alignLeft="@+id/request_quest_answer_yes_1"
+            android:layout_alignStart="@+id/request_quest_answer_yes_1"
+            android:saveEnabled="true" />
+
+        <CheckBox
+            android:id="@+id/request_quest_answer_no_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/textBackground"
+            android:ems="4"
+            android:text="@string/no"
+            android:layout_below="@+id/request_quest_3"
+            android:layout_alignLeft="@+id/request_quest_answer_no_1"
+            android:layout_alignStart="@+id/request_quest_answer_no_1"
+            android:onClick="selectYesNo"
+            android:saveEnabled="true" />
+
+        <TextView
+            android:id="@+id/request_quest_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/request_question_4"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_below="@+id/request_quest_answer_yes_3"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="5dp" />
+
+        <EditText
+            android:id="@+id/request_quest_answer_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/request_quest_4"
+            android:hint="@string/number_hint"
+            android:background="@color/textBackground"
+            android:ems="4"
+            android:inputType="number"
+            android:layout_alignRight="@+id/request_ride_title"
+            android:layout_alignEnd="@+id/request_ride_title"
+            android:layout_alignLeft="@+id/request_quest_answer_no_3"
+            android:layout_alignStart="@+id/request_quest_answer_no_3"
+            android:imeOptions="actionDone"/>
+
+
+        <Button
+            android:id="@+id/ride_submit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/submit_button"
+            android:layout_alignParentBottom="true"
+            android:onClick="sendToConfirmation"
+            android:layout_below="@id/request_quest_answer_4"
+            android:layout_centerHorizontal="true" />
+
+
+    </RelativeLayout>
+
+</ScrollView>
+

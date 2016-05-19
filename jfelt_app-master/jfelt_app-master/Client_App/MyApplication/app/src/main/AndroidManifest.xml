@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.felipe.safe_drive_app">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".Home_Menu"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".RequestRide"
+            android:parentActivityName=".Home_Menu"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Home_Menu" />
+        </activity>
+
+        <activity
+            android:name=".CancelRide"
+            android:parentActivityName=".RideScreen"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".RideScreen" />
+        </activity>
+
+        <activity
+            android:name=".RegisterDriver"
+            android:parentActivityName=".Home_Menu"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Home_Menu" />
+        </activity>
+
+        <activity
+            android:name=".AboutUs"
+            android:parentActivityName=".Home_Menu"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Home_Menu" />
+        </activity>
+
+        <activity
+            android:name=".Form_Fill"
+            android:label="@string/app_name"
+            android:parentActivityName=".Home_Menu"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Home_Menu" />
+        </activity>
+
+        <activity
+            android:name=".RequestConfirmation"
+            android:parentActivityName=".Home_Menu"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Home_Menu" />
+        </activity>
+
+        <activity android:name=".RideScreen"
+            android:parentActivityName=".RequestRide"
+            android:screenOrientation="portrait">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".RequestRide" />
+        </activity>
+
+        <activity android:name=".DriverScreen"
+            android:parentActivityName=".RegisterDriver"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".RegisterDriver" />
+        </activity>
+
+    </application>
+
+</manifest>
