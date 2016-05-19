@@ -28,12 +28,12 @@
 <fullyQualifiedTypeName name="java.util.Base64"/>
 <fullyQualifiedTypeName name="threads.Client_Thread"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="threads.Driver_Thread"/>
+<fullyQualifiedTypeName name="graphics.RequestTab"/>
+<fullyQualifiedTypeName name="entities.Driver"/>
 <fullyQualifiedTypeName name="entities.Client"/>
 <fullyQualifiedTypeName name="messages.StudentMessage"/>
-<fullyQualifiedTypeName name="messages.DriverMessage"/>
-<fullyQualifiedTypeName name="entities.Driver"/>
-<fullyQualifiedTypeName name="threads.Driver_Thread"/>
-<fullyQualifiedTypeName name="managers.Driver_Manager"/>
-<fullyQualifiedTypeName name="graphics.RequestTab"/>
 <fullyQualifiedTypeName name="managers.Client_Manager"/>
+<fullyQualifiedTypeName name="messages.DriverMessage"/>
+<fullyQualifiedTypeName name="managers.Driver_Manager"/>
 </qualifiedTypeNameHistroy>

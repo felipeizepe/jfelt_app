@@ -1,0 +1,73 @@
+package managers;
+
+import java.util.ArrayList;
+
+import messages.StudentMessage;
+import threads.Client_Thread;
+import entities.Client;
+import entities.Driver;
+
+public class Client_Manager {
+
+	private static Client_Manager self = null;
+	private ArrayList<Client_Thread> clientList;
+	
+	private Client_Manager() {
+		self = this;
+		this.clientList = new ArrayList<>();
+	}
+	
+	
+	
+	public static Client_Manager getInstance()
+	{
+		if(self == null)
+			self = new Client_Manager();
+		
+		return self;
+	}
+	
+	public void addClientThread(Client_Thread client)
+	{
+		this.clientList.add(client);	
+	}
+	
+	public Client getClientAt(int index)
+	{
+		return this.clientList.get(index).getOwner();
+	}
+	
+	public void removeClient(int index)
+	{
+		this.clientList.remove(index);
+	}
+	
+	public void removeClient(Client client)
+	{
+		this.clientList.remove(index);
+	}
+	
+	public ArrayList<Client> getClientList() {
+		ArrayList<Client> ar = new ArrayList<>();
+		for(int count1 = 0; count1 < clientList.size(); count1++)
+		{
+			ar.add(clientList.get(count1).getOwner());
+		}
+		
+		return ar;
+	}
+	
+	public void sendMessageToCLient(int index, String message)
+	{
+		this.clientList.get(index).sendMessage(new StudentMessage(clientList.get(index).getOwner(), message));
+	}
+	
+	public void assignDriverToClient(int index, Driver driver)
+	{
+		Client ct = clientList.get(index).getOwner();
+		ct.assignDriver(driver);
+		StudentMessage sm = new StudentMessage(ct, "Assign Driver");
+		sm.setType(5);
+		clientList.get(index).sendMessage(sm);
+	}
+}

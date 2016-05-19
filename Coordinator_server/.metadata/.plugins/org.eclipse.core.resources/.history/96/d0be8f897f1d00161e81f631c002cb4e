@@ -7,20 +7,22 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import entities.Client;
-import managers.Client_Manager;
-import messages.StudentMessage;
 
-public class Client_Thread extends Thread {
+import entities.Driver;
+import managers.Driver_Manager;
+import messages.DriverMessage;
 
-	private Socket clientSocket;
+
+public class Driver_Thread extends Thread {
+
+	private Socket driverSocket;
 	private ObjectInputStream streamReader;
 	private ObjectOutputStream streamWriter;
 	private boolean execute;
-	private Client owner;
+	private Driver owner;
 
 	/**
-	 * Constructor for the Client_Thread class that receives the socket and
+	 * Constructor for the Driver_Thread class that receives the socket and
 	 * attempts to create the Input and Output streams for receiving and sending
 	 * messages
 	 *
@@ -31,35 +33,34 @@ public class Client_Thread extends Thread {
 	 *            - Web socket of the client that enables the communication
 	 * @throws
 	 */
-	public Client_Thread(Socket clientSocket) throws IOException {
+	public Driver_Thread(Socket driverSocket) throws IOException {
 		super("Server");
 		this.execute = true;
-		this.clientSocket = clientSocket;
+		this.driverSocket = driverSocket;
 		this.streamWriter = new ObjectOutputStream(
-				clientSocket.getOutputStream());
-		this.streamReader = new ObjectInputStream(clientSocket.getInputStream());
+				driverSocket.getOutputStream());
+		this.streamReader = new ObjectInputStream(driverSocket.getInputStream());
 		this.owner = null;
 
 	}
 
 	/**
-	 * The thread listens for client communication attempts
+	 * The thread listens for driver communication attempts
 	 *
 	 * @author Felipe Izepe
-	 * @version 2.0
+	 * @version 1.0
 	 * @since 2016-04-16
 	 */
 	@Override
 	public void run() {
-		StudentMessage message;
+		DriverMessage message;
 		System.out.println("Checking for messages");
 		while (execute) {
 
 			try {
-					message = (StudentMessage) streamReader.readObject();
-					sendMessage(message.getMessage());
-					System.out.println(message.getMessage());
-					this.receiveMessage(message);
+				message = (DriverMessage) streamReader.readObject();
+				System.out.println(message.getMessage());
+				this.receiveMessage(message);
 			}catch(EOFException end)
 			{
 				try {
@@ -82,8 +83,9 @@ public class Client_Thread extends Thread {
 		}
 
 		try {
+			
 			streamWriter.close();
-			clientSocket.close();
+			driverSocket.close();
 			streamReader.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -93,20 +95,19 @@ public class Client_Thread extends Thread {
 	}
 
 	/**
-	 * attempts to sends a message to the client
+	 * attempts to sends a message to the driver
 	 *
 	 * @author Felipe Izepe
 	 * @version 2.0
-	 * @since 2016-04-16
+	 * @since 2016-04-30
 	 * @param message
 	 *            - message to be sent
 	 * @return True if the message was send successfully and false otherwise
 	 */
-	public boolean sendMessage(String message) {
+	public boolean sendMessage(DriverMessage message) {
 
 		try {
-			StudentMessage sm = new StudentMessage(null, message);
-			streamWriter.writeObject(sm);
+			streamWriter.writeObject(message);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -132,20 +133,23 @@ public class Client_Thread extends Thread {
 			e.printStackTrace();
 		}
 	}
-	
-	private void receiveMessage(StudentMessage message)
+
+
+	private void receiveMessage(DriverMessage message)
 	{
 		this.owner = message.getOwner();
 		
-		if(message.isMakeRequest())
+		if(message.isRegister())
 		{
-			Client_Manager.getInstance().addClientThread(this);
+			//MAKE CHECK UP FOR DRIVER HERE BEFORE ADDING---------------------------------------------------------------
+			System.out.println(owner.getName());
+			Driver_Manager.getInstance().addDriverThread(this);
 		}
 		
 	}
 	
-	public Client getOwner() {
+	public Driver getOwner() {
 		return owner;
 	}
-
+	
 }

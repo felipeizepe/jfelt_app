@@ -8,7 +8,9 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 
+
 import entities.Driver;
+import managers.Client_Manager;
 import managers.Driver_Manager;
 import messages.DriverMessage;
 
@@ -144,6 +146,11 @@ public class Driver_Thread extends Thread {
 			//MAKE CHECK UP FOR DRIVER HERE BEFORE ADDING---------------------------------------------------------------
 			System.out.println(owner.getName());
 			Driver_Manager.getInstance().addDriverThread(this);
+		}else if(message.isFinishedRide())
+		{
+			Client_Manager.getInstance().removeClient(owner.getCurrentClient());
+			this.owner.freeDriver();
+			
 		}
 		
 	}

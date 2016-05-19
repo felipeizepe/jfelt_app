@@ -48,7 +48,7 @@ public class Driver_Manager {
 		this.driverList.remove(index);
 	}
 	
-	public ArrayList<Driver> getClientList() {
+	public ArrayList<Driver> getDriverList() {
 		ArrayList<Driver> ar = new ArrayList<>();
 		for(int count1 = 0; count1 < driverList.size(); count1++)
 		{

@@ -46,6 +46,11 @@ public class Driver extends Entity implements Serializable{
 		this.hasRide = true;
 	}
 	
+	public void freeDriver() {
+		this.currentClient = null;
+		this.hasRide = false;
+	}
+	
 	public Client getCurrentClient() {
 		return currentClient;
 	}

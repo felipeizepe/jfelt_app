@@ -3,9 +3,9 @@ package entities;
 import java.io.Serializable;
 
 public class Driver extends Entity implements Serializable{
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private String license;
@@ -13,8 +13,8 @@ public class Driver extends Entity implements Serializable{
 	private String phoneNumber;
 	private boolean hasRide;
 	private Client currentClient;
-	
-	
+
+
 	public Driver(String name, String id,String phoneNumber , String license, String carDecription) {
 		super(id, name);
 		this.license = license;
@@ -22,20 +22,20 @@ public class Driver extends Entity implements Serializable{
 		this.phoneNumber = phoneNumber;
 		this.hasRide = false;
 	}
-	
+
 
 	public String getLicense() {
 		return license;
 	}
-	
+
 	public String getCarDescription() {
 		return carDescription;
 	}
-	
+
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
-	
+
 	public boolean hasRide() {
 		return hasRide;
 	}
@@ -45,10 +45,15 @@ public class Driver extends Entity implements Serializable{
 		this.currentClient = ct;
 		this.hasRide = true;
 	}
-	
+
+	public void freeDriver() {
+		this.currentClient = null;
+		this.hasRide = false;
+	}
+
 	public Client getCurrentClient() {
 		return currentClient;
 	}
-	
-	
+
+
 }

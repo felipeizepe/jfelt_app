@@ -42,6 +42,18 @@ public class Client_Manager {
 		this.clientList.remove(index);
 	}
 	
+	public void removeClient(Client client)
+	{
+		for(int count1 = 0; count1 < clientList.size(); count1++)
+		{
+			if(clientList.get(count1).getOwner().getId().equals(client.getId()))
+			{
+				clientList.remove(count1);
+				break;
+			}
+		}
+	}
+	
 	public ArrayList<Client> getClientList() {
 		ArrayList<Client> ar = new ArrayList<>();
 		for(int count1 = 0; count1 < clientList.size(); count1++)

@@ -63,7 +63,7 @@ public class Connect_Thread extends AsyncTask<String, Void, Integer> {
                 Log.i("info name: ", ct.getName());
 
                 DriverMessage sm = new DriverMessage(ct, "Register Driver");
-                sm.setType(1);
+                sm.setType(7);
                 streamWriter.writeObject(sm);
             }
         } catch (IOException e) {

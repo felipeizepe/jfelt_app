@@ -13,7 +13,7 @@ public class DriverMessage implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Operation MessageOperation;
 	private enum Operation{None,Register, Message_To_Server, Message_To_Client,
-		Deny_Request, End_Night, Report_Error, Assign_Client};
+		Deny_Request, End_Night, Report_Error, Assign_Client, Finished_Ride};
 
 	private Driver owner;
 	private String message;
@@ -49,7 +49,7 @@ public class DriverMessage implements Serializable{
 	 *
 	 *@param type - <b>0</b> send a message to the coordinator | <b>1</b> send a message to client |
 	 * <b>2</b> deny a ride request | <b>3</b> end the night | <b>4</b> report that an error occurred |
-	 *<b>5</b> assign client
+	 *<b>5</b> assign client | <b>6</b> Finished the ride | <b>7</b> Register in
 	 * @author Felipe Izepe
 	 * @version 1.0
 	 * @since 2016-04-30
@@ -74,6 +74,12 @@ public class DriverMessage implements Serializable{
 				break;
 			case 5:
 				this.MessageOperation = Operation.Assign_Client;
+				break;
+			case 6:
+				this.MessageOperation = Operation.Finished_Ride;
+				break;
+			case 7:
+				this.MessageOperation = Operation.Register;
 				break;
 			default:
 				return;
@@ -178,6 +184,13 @@ public class DriverMessage implements Serializable{
 	public boolean isAssign()
 	{
 		if(MessageOperation == Operation.Assign_Client)
+			return true;
+		return false;
+	}
+
+	public boolean isFinishedRide()
+	{
+		if(MessageOperation == Operation.Finished_Ride)
 			return true;
 		return false;
 	}
